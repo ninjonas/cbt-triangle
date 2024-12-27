@@ -127,11 +127,13 @@ const CreateEntry = () => {
       }
 
       toast.success("Record saved successfully!");
+      setSituation("")
       setThoughts([]);
       setBehaviors([]);
       setFeelingsState([]);
       setCoreBeliefs({ positive: [], negative: [] });
       setCurrentStep(1);
+      
     } catch (error: any) {
       toast.error(error.message || "An error occurred while saving");
     }
