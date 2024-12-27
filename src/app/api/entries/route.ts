@@ -24,23 +24,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Failed to save entry' }, { status: 500 });
   }
 }
-
-export async function GET() {
-  try {
-    const entries = await prisma.entry.findMany();
-
-    const formattedEntries = entries.map((entry) => ({
-      ...entry,
-      thoughts: entry.thoughts.split(','),             // Convert string back to array
-      feelings: JSON.parse(entry.feelings),           // Parse JSON string to object
-      behaviors: entry.behaviors.split(','),          // Convert string back to array
-      coreBeliefs: JSON.parse(entry.coreBeliefs)      // Parse JSON string to object
-    }));
-
-    logger.info('Fetched entries successfully');
-    return NextResponse.json(formattedEntries);
-  } catch (error: any) {
-    logger.error('Error fetching entries: ' + error.message);
-    return NextResponse.json({ error: 'Failed to fetch entries' }, { status: 500 });
-  }
-}
