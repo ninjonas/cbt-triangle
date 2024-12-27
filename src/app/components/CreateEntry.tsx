@@ -127,13 +127,12 @@ const CreateEntry = () => {
       }
 
       toast.success("Record saved successfully!");
-      setSituation("")
+      setSituation("");
       setThoughts([]);
       setBehaviors([]);
       setFeelingsState([]);
       setCoreBeliefs({ positive: [], negative: [] });
       setCurrentStep(1);
-      
     } catch (error: any) {
       toast.error(error.message || "An error occurred while saving");
     }
@@ -293,7 +292,7 @@ const CreateEntry = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 rounded-md shadow-md bg-white">
+    <div className="max-w-xl mx-auto p-3 rounded-md shadow-md bg-white">
       {/* Progress Bar */}
       <div className="w-full bg-gray-300 rounded-full h-2 mb-4">
         <div
@@ -303,17 +302,21 @@ const CreateEntry = () => {
       </div>
 
       {/* Step Header */}
-      <h2 className="text-xl font-bold mb-4 text-gray-800">
+      {/* <h2 className="text-xl font-bold mb-4 text-gray-800">
         Step {currentStep} of {steps}
-      </h2>
+      </h2> */}
 
       {/* Step 1: Thoughts */}
       {currentStep === 1 && (
         <div>
+          <h2 className="text-xl font-bold mb-4 text-gray-800">
+            Situation and Thoughts
+          </h2>
           <div className="mb-2">
             <h3 className="text-lg font-semibold mb-2 text-gray-800">
               Situation
             </h3>
+            <div className="w-full text-xs mb-3"><p>A situation is anything that happens in your life, which triggers the cognitive triangle.</p> </div>
             <input
               type="text"
               className="w-full p-2 border rounded-md"
@@ -327,16 +330,16 @@ const CreateEntry = () => {
             <h3 className="text-lg font-semibold mb-2 text-gray-800">
               Thoughts
             </h3>
+            <div className="w-full text-xs mb-3"><p>Thoughts are your interpretations of a situation. For example, if a stranger looks at you with an angry expression, you could think: “Oh no, what did I do wrong?” or “Maybe they are having a bad day.”</p></div>
             <div></div>
 
             <div className="flex mb-4">
-              <input
-                type="text"
+              <textarea
                 className="w-full p-2 border rounded-md"
                 value={newThought}
                 onChange={(e) => setNewThought(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleAddThought()}
-                placeholder="Enter a thought"
+                placeholder="What's on your mind?"
               />
               <button
                 type="button"
@@ -361,6 +364,10 @@ const CreateEntry = () => {
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
             How Do You Feel?
           </h3>
+          <div className="w-full text-xs mb-3"><p>Emotions are feelings, such as happy, sad, angry, or
+worried. Emotions can have physical components as
+well as mental, such as low energy when feeling sad,
+or a stomachache when nervous.</p></div>
           <div className="text-center mb-4">
             <span
               className={`text-xl font-bold ${getPleasantnessLabelColor(
@@ -371,7 +378,7 @@ const CreateEntry = () => {
             </span>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm text-gray-600">Not Pleasant</span>
+            <span className="text-sm text-gray-600 font-bold">Not Pleasant</span>
             <input
               type="range"
               min="0"
@@ -383,12 +390,12 @@ const CreateEntry = () => {
                 background: sliderGradient,
               }}
             />
-            <span className="text-sm text-gray-600">Pleasant</span>
+            <span className="text-sm text-gray-600 font-bold p-2">Pleasant</span>
           </div>
           {displayedCategories.map((parent) => (
             <div key={parent} className="mb-4">
               <div
-                className={`cursor-pointer p-2 font-bold ${categoryColors[parent]} rounded-md`}
+                className={`cursor-pointer text-md p-2 font-bold ${categoryColors[parent]} rounded-md`}
                 onClick={() => toggleExpander(parent)}
               >
                 {parent}
@@ -398,7 +405,7 @@ const CreateEntry = () => {
                   {feelings[parent].map((subFeeling) => (
                     <button
                       key={subFeeling}
-                      className={`p-2 rounded ${
+                      className={`p-2 rounded text-sm ${
                         feelingsState.find(
                           (f) =>
                             f.parent === parent &&
@@ -423,8 +430,12 @@ const CreateEntry = () => {
       {currentStep === 3 && (
         <div>
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
-            Enter Your Behaviors
+            Behaviors
           </h3>
+          <div className="w-full text-xs mb-3"><p>Behaviors are your response to a situation.
+Behaviors include actions such as saying something
+or doing something (or, choosing not to do
+something).</p></div>
           <div className="flex mb-4">
             <input
               type="text"
