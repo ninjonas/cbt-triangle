@@ -117,7 +117,7 @@ export const feelings = {
     Angry: 'bg-red-200',
     Fearful: 'bg-green-200',
     Surprised: 'bg-purple-200',
-    Bad: 'bg-gray-200',
+    Bad: 'bg-orange-200',
   };
   
   export const negativeCognitions = [

@@ -1,4 +1,4 @@
-import CreateEntry from './components/CreateEntry';
+import CreateEntry from './components/CreateEntry/index';
 
 export default function Home() {
   return (

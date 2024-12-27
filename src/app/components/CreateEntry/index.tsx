@@ -7,7 +7,7 @@ import {
   categoryColors,
   positiveCognitions,
   negativeCognitions,
-} from "../utils/data";
+} from "../../utils/data";
 
 type Feeling = {
   parent: string;
@@ -34,7 +34,9 @@ const CreateEntry = () => {
   //Begin: Step 2
   const [sliderValue, setSliderValue] = useState(51);
   const [feelingsState, setFeelingsState] = useState<Feeling[]>([]);
-  const [expandedFeelingsCategories, setExpandedFeelingsCategories] = useState<string[]>([]); 
+  const [expandedFeelingsCategories, setExpandedFeelingsCategories] = useState<
+    string[]
+  >([]);
 
   const toggleSubFeeling = (parent: string, subFeeling: string) => {
     setFeelingsState((prev) => {
@@ -79,29 +81,29 @@ const CreateEntry = () => {
   };
 
   const sliderGradient = `linear-gradient(to right, #f87171 0%, #f87171 ${sliderValue}%, #4ade80 ${sliderValue}%, #4ade80 100%)`;
-  
-  const displayedCategories =
-  sliderValue === 50
-    ? Object.keys(categoryColors) // Show all feelings
-    : sliderValue < 50
-    ? ["Sad", "Angry", "Fearful", "Bad"] // Not pleasant feelings
-    : ["Happy", "Surprised"]; // Pleasant feelings
 
-    const getPleasantnessLabel = (value: number) => {
-      if (value <= 20) return "😢 Very Unpleasant";
-      if (value <= 40) return "☹️ Unpleasant";
-      if (value <= 60) return "😐 Neutral";
-      if (value <= 80) return "😊 Pleasant";
-      return "😄 Very Pleasant";
-    };
-  
-    const getPleasantnessLabelColor = (value: number) => {
-      if (value <= 20) return "text-red-500"; // Very Unpleasant
-      if (value <= 40) return "text-orange-500"; // Unpleasant
-      if (value <= 60) return "text-gray-500"; // Neutral
-      if (value <= 80) return "text-green-500"; // Pleasant
-      return "text-emerald-500"; // Very Pleasant
-    };
+  const displayedCategories =
+    sliderValue === 50
+      ? Object.keys(categoryColors) // Show all feelings
+      : sliderValue < 50
+      ? [ "Surprised", "Sad", "Angry", "Fearful", "Bad"] // Not pleasant feelings
+      : ["Happy", "Surprised"]; // Pleasant feelings
+
+  const getPleasantnessLabel = (value: number) => {
+    if (value <= 20) return "😢 Very Unpleasant";
+    if (value <= 40) return "☹️ Unpleasant";
+    if (value <= 60) return "😐 Neutral";
+    if (value <= 80) return "😊 Pleasant";
+    return "😄 Very Pleasant";
+  };
+
+  const getPleasantnessLabelColor = (value: number) => {
+    if (value <= 20) return "text-red-500"; // Very Unpleasant
+    if (value <= 40) return "text-orange-500"; // Unpleasant
+    if (value <= 60) return "text-gray-500"; // Neutral
+    if (value <= 80) return "text-green-500"; // Pleasant
+    return "text-emerald-500"; // Very Pleasant
+  };
   //End: Step 2
 
   //Begin: Step 3
@@ -143,88 +145,81 @@ const CreateEntry = () => {
       : "Based on your pleasantness level, we are displaying negative cognitions to help identify areas to challenge or reframe.";
 
   //End: Step 4
-  
-//Begin: Step 5
-const getSummaryMessage = () => {
-  if (sliderValue <= 20) {
-    return "You’re taking an important step by reflecting on your feelings. It’s okay to feel this way sometimes. Keep logging your thoughts and emotions, and remember: small steps lead to big changes!";
-  } else if (sliderValue <= 40) {
-    return "You’re doing a great job by acknowledging your emotions. This is a crucial part of self-care. Continue journaling and exploring what’s on your mind—things will improve over time.";
-  } else if (sliderValue <= 60) {
-    return "You’re in a reflective state. This is a great opportunity to examine both what’s working and what could improve. Keep building your self-awareness and maintaining balance in your emotions.";
-  } else if (sliderValue <= 80) {
-    return "You’re in a good place emotionally! Keep reinforcing these positive feelings by engaging in activities you enjoy and nurturing your healthy habits.";
-  } else {
-    return "Fantastic! You’re radiating positivity right now. Keep up the great work, and continue the habits that bring you joy and fulfillment. Share this positivity with others too!";
-  }
-};
 
-const summaryMessage = getSummaryMessage();
+  //Begin: Step 5
+  const getSummaryMessage = () => {
+    if (sliderValue <= 20) {
+      return "You’re taking an important step by reflecting on your feelings. It’s okay to feel this way sometimes. Keep logging your thoughts and emotions, and remember: small steps lead to big changes!";
+    } else if (sliderValue <= 40) {
+      return "You’re doing a great job by acknowledging your emotions. This is a crucial part of self-care. Continue journaling and exploring what’s on your mind—things will improve over time.";
+    } else if (sliderValue <= 60) {
+      return "You’re in a reflective state. This is a great opportunity to examine both what’s working and what could improve. Keep building your self-awareness and maintaining balance in your emotions.";
+    } else if (sliderValue <= 80) {
+      return "You’re in a good place emotionally! Keep reinforcing these positive feelings by engaging in activities you enjoy and nurturing your healthy habits.";
+    } else {
+      return "Fantastic! You’re radiating positivity right now. Keep up the great work, and continue the habits that bring you joy and fulfillment. Share this positivity with others too!";
+    }
+  };
 
-const generateSummaryText = () => {
-  const thoughtsText = thoughts.length
-    ? `Thoughts:\n\t${thoughts.join(", ")}\n`
-    : "";
-  const behaviorsText = behaviors.length
-    ? `Behaviours:\n\t${behaviors.join(", ")}\n`
-    : "";
-  const feelingsText = feelingsState.length
-    ? `Feelings: ${feelingsState
-        .map(
-          (feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`
-        )
-        .join(", ")}\n`
-    : "";
-  const cognitionsText = `${
-    coreBeliefs.positive.length
-      ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n`
-      : ""
-  }${
-    coreBeliefs.negative.length
-      ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n`
-      : ""
-  }`;
-  const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(
-    sliderValue
-  )}\n`;
+  const summaryMessage = getSummaryMessage();
 
-  const situationText = `Situation: ${situation}\n`;
+  const generateSummaryText = () => {
+    const thoughtsText = thoughts.length
+      ? `Thoughts:\n\t${thoughts.join(", ")}\n`
+      : "";
+    const behaviorsText = behaviors.length
+      ? `Behaviours:\n\t${behaviors.join(", ")}\n`
+      : "";
+    const feelingsText = feelingsState.length
+      ? `Feelings: ${feelingsState
+          .map(
+            (feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`
+          )
+          .join(", ")}\n`
+      : "";
+    const cognitionsText = `${
+      coreBeliefs.positive.length
+        ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n`
+        : ""
+    }${
+      coreBeliefs.negative.length
+        ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n`
+        : ""
+    }`;
+    const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(
+      sliderValue
+    )}\n`;
 
-  return `${situationText}${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
-};
+    const situationText = `Situation: ${situation}\n`;
 
-const getCurrentTimestamp = () => {
-  const now = new Date();
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  }).format(now);
-};
+    return `${situationText}${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
+  };
 
-const handleCopyToClipboard = () => {
-  const summaryText = `Date: ${getCurrentTimestamp()}\n${generateSummaryText()}`;
-  navigator.clipboard
-    .writeText(summaryText)
-    .then(() => {
-      toast.success("Summary copied to clipboard!");
-    })
-    .catch(() => {
-      toast.error("Failed to copy summary.");
-    });
-};
-//End: Step 5
-  
+  const getCurrentTimestamp = () => {
+    const now = new Date();
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    }).format(now);
+  };
 
-  
-  
+  const handleCopyToClipboard = () => {
+    const summaryText = `Date: ${getCurrentTimestamp()}\n${generateSummaryText()}`;
+    navigator.clipboard
+      .writeText(summaryText)
+      .then(() => {
+        toast.success("Summary copied to clipboard!");
+      })
+      .catch(() => {
+        toast.error("Failed to copy summary.");
+      });
+  };
+  //End: Step 5
 
-  
-
-  
   const handleSubmit = async () => {
     if (!validateStep()) return;
 
@@ -260,11 +255,6 @@ const handleCopyToClipboard = () => {
       toast.error(error.message || "An error occurred while saving");
     }
   };
-
-
-
-  
-
 
   const validateStep = () => {
     console.log(currentStep);
@@ -316,10 +306,6 @@ const handleCopyToClipboard = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  
-
-  
-
   return (
     <div className="max-w-xl mx-auto p-3 rounded-md shadow-md bg-white">
       {/* Progress Bar */}
@@ -340,7 +326,11 @@ const handleCopyToClipboard = () => {
             <h3 className="text-lg font-semibold mb-2 text-gray-800">
               Situation
             </h3>
-            <div className="w-full text-xs mb-3"><p>A situation is anything that happens in your life, which triggers the cognitive triangle.</p> </div>
+            <div className="w-full text-xs mb-3">
+              <p>
+                A situation is anything that happens in your life, which triggers the cognitive triangle.
+              </p>
+            </div>
             <input
               type="text"
               className="w-full p-2 border rounded-md"
@@ -354,11 +344,15 @@ const handleCopyToClipboard = () => {
             <h3 className="text-lg font-semibold mb-2 text-gray-800">
               Thoughts
             </h3>
-            <div className="w-full text-xs mb-3"><p>Thoughts are your interpretations of a situation. For example, if a stranger looks at you with an angry expression, you could think: “Oh no, what did I do wrong?” or “Maybe they are having a bad day.”</p></div>
+            <div className="w-full text-xs mb-3">
+              <p>
+                Thoughts are your interpretations of a situation. For example, if a stranger looks at you with an angry expression, you could think: “Oh no, what did I do wrong?” or “Maybe they are having a bad day.”
+              </p>
+            </div>
             <div></div>
 
             <div className="flex mb-4">
-              <textarea
+              <input type="text"
                 className="w-full p-2 border rounded-md"
                 value={newThought}
                 onChange={(e) => setNewThought(e.target.value)}
@@ -388,10 +382,11 @@ const handleCopyToClipboard = () => {
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
             How Do You Feel?
           </h3>
-          <div className="w-full text-xs mb-3"><p>Emotions are feelings, such as happy, sad, angry, or
-worried. Emotions can have physical components as
-well as mental, such as low energy when feeling sad,
-or a stomachache when nervous.</p></div>
+          <div className="w-full text-xs mb-3">
+            <p>
+              Emotions are feelings, such as happy, sad, angry, or worried. Emotions can have physical components as well as mental, such as low energy when feeling sad, or a stomachache when nervous.
+            </p>
+          </div>
           <div className="text-center mb-4">
             <span
               className={`text-xl font-bold ${getPleasantnessLabelColor(
@@ -402,7 +397,9 @@ or a stomachache when nervous.</p></div>
             </span>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm text-gray-600 font-bold">Not Pleasant</span>
+            <span className="text-sm text-gray-600 font-bold">
+              Not Pleasant
+            </span>
             <input
               type="range"
               min="0"
@@ -414,7 +411,9 @@ or a stomachache when nervous.</p></div>
                 background: sliderGradient,
               }}
             />
-            <span className="text-sm text-gray-600 font-bold p-2">Pleasant</span>
+            <span className="text-sm text-gray-600 font-bold p-2">
+              Pleasant
+            </span>
           </div>
           {displayedCategories.map((parent) => (
             <div key={parent} className="mb-4">
@@ -456,10 +455,11 @@ or a stomachache when nervous.</p></div>
           <h3 className="text-lg font-semibold mb-2 text-gray-800">
             Behaviors
           </h3>
-          <div className="w-full text-xs mb-3"><p>Behaviors are your response to a situation.
-Behaviors include actions such as saying something
-or doing something (or, choosing not to do
-something).</p></div>
+          <div className="w-full text-xs mb-3">
+            <p>
+              Behaviors are your response to a situation. Behaviors include actions such as saying something or doing something (or, choosing not to do something).
+            </p>
+          </div>
           <div className="flex mb-4">
             <input
               type="text"
