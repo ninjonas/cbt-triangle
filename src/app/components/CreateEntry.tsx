@@ -30,6 +30,7 @@ const CreateEntry = () => {
     positive: [] as string[],
     negative: [] as string[],
   });
+  const [situation, setSituation] = useState("");
 
   const handleAddThought = () => {
     if (newThought.trim()) {
@@ -105,6 +106,7 @@ const CreateEntry = () => {
     if (!validateStep()) return;
 
     const entry = {
+      situation,
       thoughts,
       behaviors,
       feelings: feelingsState,
@@ -170,6 +172,10 @@ const CreateEntry = () => {
     console.log(currentStep);
     switch (currentStep) {
       case 1:
+        if (!situation.trim()) {
+          toast.error("Please describe the situation.");
+          return false;
+        }
         if (thoughts.length === 0) {
           toast.error("Please add at least one thought.");
           return false;
@@ -255,7 +261,9 @@ const CreateEntry = () => {
       sliderValue
     )}\n`;
 
-    return `${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
+    const situationText = `Situation: ${situation}\n`;
+
+    return `${situationText}${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
   };
 
   const getCurrentTimestamp = () => {
@@ -300,31 +308,48 @@ const CreateEntry = () => {
       {/* Step 1: Thoughts */}
       {currentStep === 1 && (
         <div>
-          <h3 className="text-lg font-semibold mb-2 text-gray-800">
-            Thoughts
-          </h3>
-          <div className="flex mb-4">
+          <div className="mb-2">
+            <h3 className="text-lg font-semibold mb-2 text-gray-800">
+              Situation
+            </h3>
             <input
               type="text"
               className="w-full p-2 border rounded-md"
-              value={newThought}
-              onChange={(e) => setNewThought(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleAddThought()}
-              placeholder="Enter a thought"
+              value={situation}
+              onChange={(e) => setSituation(e.target.value)}
+              placeholder="Describe the situation that led you to this entry"
+              required
             />
-            <button
-              type="button"
-              className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md"
-              onClick={handleAddThought}
-            >
-              Add
-            </button>
           </div>
-          <ul className="list-disc list-inside">
-            {thoughts.map((thought, idx) => (
-              <li key={idx}>{thought}</li>
-            ))}
-          </ul>
+          <div>
+            <h3 className="text-lg font-semibold mb-2 text-gray-800">
+              Thoughts
+            </h3>
+            <div></div>
+
+            <div className="flex mb-4">
+              <input
+                type="text"
+                className="w-full p-2 border rounded-md"
+                value={newThought}
+                onChange={(e) => setNewThought(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleAddThought()}
+                placeholder="Enter a thought"
+              />
+              <button
+                type="button"
+                className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md"
+                onClick={handleAddThought}
+              >
+                Add
+              </button>
+            </div>
+            <ul className="list-disc list-inside">
+              {thoughts.map((thought, idx) => (
+                <li key={idx}>{thought}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
 
@@ -472,6 +497,7 @@ const CreateEntry = () => {
             >
               {getPleasantnessLabel(sliderValue)}
             </p>
+            <h4 className="text-md font-bold mb-2 mt-4">{situation}</h4>
             <p className="text-gray-800 font-medium">{summaryMessage}</p>
             {/* Copy Button */}
             <div className="flex justify-end mt-4">
