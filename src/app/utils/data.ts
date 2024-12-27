@@ -199,4 +199,75 @@ export const feelings = {
     "I can handle it.",
     "I am capable.",
   ];
-  
+  // Types for the form data
+export interface Feeling {
+  parent: string;
+  subFeelings: string[];
+}
+
+export interface CoreBeliefs {
+  positive: string[];
+  negative: string[];
+}
+
+export interface SummaryData {
+  thoughts: string[];
+  behaviors: string[];
+  feelingsState: Feeling[];
+  sliderValue: number;
+  coreBeliefs: CoreBeliefs;
+}
+
+// Generates the formatted summary text
+export const generateSummaryText = ({ thoughts, behaviors, feelingsState, sliderValue, coreBeliefs }: SummaryData): string => {
+  const thoughtsText = thoughts.length ? `Thoughts:\n\t${thoughts.join(', ')}\n` : '';
+  const behaviorsText = behaviors.length ? `Behaviours:\n\t${behaviors.join(', ')}\n` : '';
+  const feelingsText = feelingsState.length
+    ? `Feelings: ${feelingsState
+        .map((feeling) => `${feeling.parent} (${feeling.subFeelings.join(', ')})`)
+        .join(', ')}\n`
+    : '';
+  const cognitionsText = `${coreBeliefs.positive.length ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(', ')}\n` : ''}${coreBeliefs.negative.length ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(', ')}\n` : ''}`;
+  const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(sliderValue)}\n`;
+
+  return `${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
+};
+
+// Map slider value to pleasantness labels
+export const getPleasantnessLabel = (value: number): string => {
+  if (value <= 20) return '😢 Very Unpleasant';
+  if (value <= 40) return '☹️ Unpleasant';
+  if (value <= 60) return '😐 Neutral';
+  if (value <= 80) return '😊 Pleasant';
+  return '😄 Very Pleasant';
+};
+
+// Map slider value to pleasantness colors
+export const getPleasantnessLabelColor = (value: number): string => {
+  if (value <= 20) return 'text-red-500'; // Very Unpleasant
+  if (value <= 40) return 'text-orange-500'; // Unpleasant
+  if (value <= 60) return 'text-gray-500'; // Neutral
+  if (value <= 80) return 'text-green-500'; // Pleasant
+  return 'text-emerald-500'; // Very Pleasant
+};
+
+  export const getCurrentTimestamp = () => {
+    const now = new Date();
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(now);
+  };
+
+  const handleCopyToClipboard = (summary: SummaryData, toast: any) => {
+    const summaryText = `Date: ${getCurrentTimestamp()}\n${generateSummaryText(summary)}`;
+    navigator.clipboard.writeText(summaryText).then(() => {
+      toast.success('Summary copied to clipboard!');
+    }).catch(() => {
+      toast.error('Failed to copy summary.');
+    });
+  };

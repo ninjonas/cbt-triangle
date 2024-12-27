@@ -218,3 +218,21 @@ Invalid `prisma.entry.create()` invocation in
               })
 
 Argument `pleasantness` is missing.
+[2024-12-27T11:15:04.060Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create({
+                data: {
+                  thoughts: "asfsdafsd,safsadads,asfasd",
+                  feelings: "[{\"parent\":\"Happy\",\"subFeelings\":[\"Proud\",\"Aroused\"]},{\"parent\":\"Surprised\",\"subFeelings\":[\"Excited\",\"Startled\"]}]",
+                  behaviors: "asfdsafasd,asfdsadfa,safsadfasd",
+                  coreBeliefs: "{\"positive\":[\"I am worthy.\",\"I can have good things.\",\"I am fine.\",\"I can trust myself.\",\"I have choices.\"],\"negative\":[]}",
+              +   pleasantness: Int
+                }
+              })
+
+Argument `pleasantness` is missing.
