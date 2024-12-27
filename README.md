@@ -1,9 +1,11 @@
 # The Cognitive Triangle
 
 ## What is the Cognitive Triangle?
-CBT emphasizes the relationship between our thoughts, our feelings, and our behaviors. More specifically, how our thoughts change the way that we feel, which subsequently changes the way that we act, which then influences our thoughts. Without intervention, the process continues to repeat. The triangle looks a little something like this:
+The cognitive triangle is a simple [CBT](https://aanmc.org/naturopathic-medicine/cognitive-triangle-cbt/) tool you can use to help break negative thought patterns. It is similar to keeping a thought record, but has more structure and requires you to positively reappraise your thoughts, feelings, and behaviors as opposed to just your thoughts. 7
 
-<img src="https://images.squarespace-cdn.com/content/v1/55882694e4b07616418a6a84/1597238858969-GYH1V5MF491AC95BX2X0/Cognitive+Triangle.png?format=200w" />
+The cognitive triangle is a graph depicting thoughts, feelings, and behaviors all leading to one another, as shown below:
+
+<img src="https://aanmc.org/wp-content/uploads/2024/03/iStock-1882744014-1-1536x878.jpg?format=200w" />
 
 ## What is this Project?
 I've dealt with some life changing experiences in the past few years that have given me severe anxiety. After working with my therapist for over a year, they have showed me techniques to help me rationalize my thoughts. The Cognitive Triangle helped me. 
