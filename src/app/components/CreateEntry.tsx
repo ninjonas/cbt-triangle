@@ -15,22 +15,13 @@ type Feeling = {
 };
 
 const CreateEntry = () => {
-  const [currentStep, setCurrentStep] = useState(1);
   const steps = 5; // Total number of steps
+  const [currentStep, setCurrentStep] = useState(1);
+
+  //Begin: Step 1
+  const [situation, setSituation] = useState("");
   const [thoughts, setThoughts] = useState<string[]>([]);
   const [newThought, setNewThought] = useState("");
-  const [behaviors, setBehaviors] = useState<string[]>([]);
-  const [newBehavior, setNewBehavior] = useState("");
-  const [feelingsState, setFeelingsState] = useState<Feeling[]>([]);
-  const [sliderValue, setSliderValue] = useState(50); // Slider value (0 = not pleasant, 100 = pleasant)
-  const [expandedFeelingsCategories, setExpandedFeelingsCategories] = useState<
-    string[]
-  >([]); // Track expanded feelings
-  const [coreBeliefs, setCoreBeliefs] = useState({
-    positive: [] as string[],
-    negative: [] as string[],
-  });
-  const [situation, setSituation] = useState("");
 
   const handleAddThought = () => {
     if (newThought.trim()) {
@@ -38,13 +29,12 @@ const CreateEntry = () => {
       setNewThought("");
     }
   };
+  //End: Step 1
 
-  const handleAddBehavior = () => {
-    if (newBehavior.trim()) {
-      setBehaviors((prev) => [...prev, newBehavior.trim()]);
-      setNewBehavior("");
-    }
-  };
+  //Begin: Step 2
+  const [sliderValue, setSliderValue] = useState(51);
+  const [feelingsState, setFeelingsState] = useState<Feeling[]>([]);
+  const [expandedFeelingsCategories, setExpandedFeelingsCategories] = useState<string[]>([]); 
 
   const toggleSubFeeling = (parent: string, subFeeling: string) => {
     setFeelingsState((prev) => {
@@ -79,6 +69,59 @@ const CreateEntry = () => {
     );
   };
 
+  const handleSliderChange = (value: number) => {
+    if (value === 50) {
+      // Prevent exactly 50% by snapping to 49% or 51%
+      setSliderValue((prev) => (prev < 50 ? 49 : 51));
+    } else {
+      setSliderValue(value);
+    }
+  };
+
+  const sliderGradient = `linear-gradient(to right, #f87171 0%, #f87171 ${sliderValue}%, #4ade80 ${sliderValue}%, #4ade80 100%)`;
+  
+  const displayedCategories =
+  sliderValue === 50
+    ? Object.keys(categoryColors) // Show all feelings
+    : sliderValue < 50
+    ? ["Sad", "Angry", "Fearful", "Bad"] // Not pleasant feelings
+    : ["Happy", "Surprised"]; // Pleasant feelings
+
+    const getPleasantnessLabel = (value: number) => {
+      if (value <= 20) return "😢 Very Unpleasant";
+      if (value <= 40) return "☹️ Unpleasant";
+      if (value <= 60) return "😐 Neutral";
+      if (value <= 80) return "😊 Pleasant";
+      return "😄 Very Pleasant";
+    };
+  
+    const getPleasantnessLabelColor = (value: number) => {
+      if (value <= 20) return "text-red-500"; // Very Unpleasant
+      if (value <= 40) return "text-orange-500"; // Unpleasant
+      if (value <= 60) return "text-gray-500"; // Neutral
+      if (value <= 80) return "text-green-500"; // Pleasant
+      return "text-emerald-500"; // Very Pleasant
+    };
+  //End: Step 2
+
+  //Begin: Step 3
+  const [behaviors, setBehaviors] = useState<string[]>([]);
+  const [newBehavior, setNewBehavior] = useState("");
+
+  const handleAddBehavior = () => {
+    if (newBehavior.trim()) {
+      setBehaviors((prev) => [...prev, newBehavior.trim()]);
+      setNewBehavior("");
+    }
+  };
+  //End: Step 3
+
+  //Begin: Step 4
+  const [coreBeliefs, setCoreBeliefs] = useState({
+    positive: [] as string[],
+    negative: [] as string[],
+  });
+
   const toggleCognition = (
     type: "positive" | "negative",
     cognition: string
@@ -91,17 +134,97 @@ const CreateEntry = () => {
     }));
   };
 
-  const handleSliderChange = (value: number) => {
-    if (value === 50) {
-      // Prevent exactly 50% by snapping to 49% or 51%
-      setSliderValue((prev) => (prev < 50 ? 49 : 51));
-    } else {
-      setSliderValue(value);
-    }
-  };
+  const displayedCognitions =
+    sliderValue >= 50 ? positiveCognitions : negativeCognitions;
 
-  const sliderGradient = `linear-gradient(to right, #f87171 0%, #f87171 ${sliderValue}%, #4ade80 ${sliderValue}%, #4ade80 100%)`;
+  const cognitionMessage =
+    sliderValue >= 50
+      ? "Based on your pleasantness level, we are displaying positive cognitions to help reinforce your positive mindset."
+      : "Based on your pleasantness level, we are displaying negative cognitions to help identify areas to challenge or reframe.";
 
+  //End: Step 4
+  
+//Begin: Step 5
+const getSummaryMessage = () => {
+  if (sliderValue <= 20) {
+    return "You’re taking an important step by reflecting on your feelings. It’s okay to feel this way sometimes. Keep logging your thoughts and emotions, and remember: small steps lead to big changes!";
+  } else if (sliderValue <= 40) {
+    return "You’re doing a great job by acknowledging your emotions. This is a crucial part of self-care. Continue journaling and exploring what’s on your mind—things will improve over time.";
+  } else if (sliderValue <= 60) {
+    return "You’re in a reflective state. This is a great opportunity to examine both what’s working and what could improve. Keep building your self-awareness and maintaining balance in your emotions.";
+  } else if (sliderValue <= 80) {
+    return "You’re in a good place emotionally! Keep reinforcing these positive feelings by engaging in activities you enjoy and nurturing your healthy habits.";
+  } else {
+    return "Fantastic! You’re radiating positivity right now. Keep up the great work, and continue the habits that bring you joy and fulfillment. Share this positivity with others too!";
+  }
+};
+
+const summaryMessage = getSummaryMessage();
+
+const generateSummaryText = () => {
+  const thoughtsText = thoughts.length
+    ? `Thoughts:\n\t${thoughts.join(", ")}\n`
+    : "";
+  const behaviorsText = behaviors.length
+    ? `Behaviours:\n\t${behaviors.join(", ")}\n`
+    : "";
+  const feelingsText = feelingsState.length
+    ? `Feelings: ${feelingsState
+        .map(
+          (feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`
+        )
+        .join(", ")}\n`
+    : "";
+  const cognitionsText = `${
+    coreBeliefs.positive.length
+      ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n`
+      : ""
+  }${
+    coreBeliefs.negative.length
+      ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n`
+      : ""
+  }`;
+  const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(
+    sliderValue
+  )}\n`;
+
+  const situationText = `Situation: ${situation}\n`;
+
+  return `${situationText}${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
+};
+
+const getCurrentTimestamp = () => {
+  const now = new Date();
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(now);
+};
+
+const handleCopyToClipboard = () => {
+  const summaryText = `Date: ${getCurrentTimestamp()}\n${generateSummaryText()}`;
+  navigator.clipboard
+    .writeText(summaryText)
+    .then(() => {
+      toast.success("Summary copied to clipboard!");
+    })
+    .catch(() => {
+      toast.error("Failed to copy summary.");
+    });
+};
+//End: Step 5
+  
+
+  
+  
+
+  
+
+  
   const handleSubmit = async () => {
     if (!validateStep()) return;
 
@@ -138,36 +261,10 @@ const CreateEntry = () => {
     }
   };
 
-  const displayedCategories =
-    sliderValue === 50
-      ? Object.keys(categoryColors) // Show all feelings
-      : sliderValue < 50
-      ? ["Sad", "Angry", "Fearful", "Bad"] // Not pleasant feelings
-      : ["Happy", "Surprised"]; // Pleasant feelings
 
-  const displayedCognitions =
-    sliderValue >= 50 ? positiveCognitions : negativeCognitions;
 
-  const cognitionMessage =
-    sliderValue >= 50
-      ? "Based on your pleasantness level, we are displaying positive cognitions to help reinforce your positive mindset."
-      : "Based on your pleasantness level, we are displaying negative cognitions to help identify areas to challenge or reframe.";
+  
 
-  const getSummaryMessage = () => {
-    if (sliderValue <= 20) {
-      return "You’re taking an important step by reflecting on your feelings. It’s okay to feel this way sometimes. Keep logging your thoughts and emotions, and remember: small steps lead to big changes!";
-    } else if (sliderValue <= 40) {
-      return "You’re doing a great job by acknowledging your emotions. This is a crucial part of self-care. Continue journaling and exploring what’s on your mind—things will improve over time.";
-    } else if (sliderValue <= 60) {
-      return "You’re in a reflective state. This is a great opportunity to examine both what’s working and what could improve. Keep building your self-awareness and maintaining balance in your emotions.";
-    } else if (sliderValue <= 80) {
-      return "You’re in a good place emotionally! Keep reinforcing these positive feelings by engaging in activities you enjoy and nurturing your healthy habits.";
-    } else {
-      return "Fantastic! You’re radiating positivity right now. Keep up the great work, and continue the habits that bring you joy and fulfillment. Share this positivity with others too!";
-    }
-  };
-
-  const summaryMessage = getSummaryMessage();
 
   const validateStep = () => {
     console.log(currentStep);
@@ -219,77 +316,9 @@ const CreateEntry = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const getPleasantnessLabel = (value: number) => {
-    if (value <= 20) return "😢 Very Unpleasant";
-    if (value <= 40) return "☹️ Unpleasant";
-    if (value <= 60) return "😐 Neutral";
-    if (value <= 80) return "😊 Pleasant";
-    return "😄 Very Pleasant";
-  };
+  
 
-  const getPleasantnessLabelColor = (value: number) => {
-    if (value <= 20) return "text-red-500"; // Very Unpleasant
-    if (value <= 40) return "text-orange-500"; // Unpleasant
-    if (value <= 60) return "text-gray-500"; // Neutral
-    if (value <= 80) return "text-green-500"; // Pleasant
-    return "text-emerald-500"; // Very Pleasant
-  };
-
-  const generateSummaryText = () => {
-    const thoughtsText = thoughts.length
-      ? `Thoughts:\n\t${thoughts.join(", ")}\n`
-      : "";
-    const behaviorsText = behaviors.length
-      ? `Behaviours:\n\t${behaviors.join(", ")}\n`
-      : "";
-    const feelingsText = feelingsState.length
-      ? `Feelings: ${feelingsState
-          .map(
-            (feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`
-          )
-          .join(", ")}\n`
-      : "";
-    const cognitionsText = `${
-      coreBeliefs.positive.length
-        ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n`
-        : ""
-    }${
-      coreBeliefs.negative.length
-        ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n`
-        : ""
-    }`;
-    const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(
-      sliderValue
-    )}\n`;
-
-    const situationText = `Situation: ${situation}\n`;
-
-    return `${situationText}${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
-  };
-
-  const getCurrentTimestamp = () => {
-    const now = new Date();
-    return new Intl.DateTimeFormat("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    }).format(now);
-  };
-
-  const handleCopyToClipboard = () => {
-    const summaryText = `Date: ${getCurrentTimestamp()}\n${generateSummaryText()}`;
-    navigator.clipboard
-      .writeText(summaryText)
-      .then(() => {
-        toast.success("Summary copied to clipboard!");
-      })
-      .catch(() => {
-        toast.error("Failed to copy summary.");
-      });
-  };
+  
 
   return (
     <div className="max-w-xl mx-auto p-3 rounded-md shadow-md bg-white">
@@ -300,11 +329,6 @@ const CreateEntry = () => {
           style={{ width: `${(currentStep / steps) * 100}%` }}
         ></div>
       </div>
-
-      {/* Step Header */}
-      {/* <h2 className="text-xl font-bold mb-4 text-gray-800">
-        Step {currentStep} of {steps}
-      </h2> */}
 
       {/* Step 1: Thoughts */}
       {currentStep === 1 && (
