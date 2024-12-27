@@ -1,0 +1,220 @@
+[2024-12-27T05:30:36.801Z] INFO: Received data for saving: {"thoughts":["asdfas"],"feelings":["Lonely"],"behaviors":["asdfas"],"coreBeliefs":{"negative":[],"positive":["I deserve love; I can have love."]}}
+[2024-12-27T05:30:36.808Z] ERROR: Error saving to database: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:204:42
+
+  201 try {
+  202     const data = await req.json();
+  203     __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$utils$2f$logger$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].info('Received data for saving: ' + JSON.stringify(data));
+→ 204     const entry = await prisma.entry.create({
+            data: {
+              thoughts: [
+                "asdfas"
+              ],
+              feelings: [
+                "Lonely"
+              ],
+              behaviors: [
+                "asdfas"
+              ],
+              coreBeliefs: {
+                negative: [],
+                positive: [
+                  "I deserve love; I can have love."
+                ]
+              },
+          +   thought: String
+            }
+          })
+
+Argument `thought` is missing.
+[2024-12-27T05:31:13.376Z] INFO: Received data for saving: {"thoughts":["safsdfadsfsa"],"feelings":["Lonely"],"behaviors":["asfsdaadsf"],"coreBeliefs":{"negative":[],"positive":["I am a good (loving) person."]}}
+[2024-12-27T05:31:13.378Z] ERROR: Error saving to database: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:204:42
+
+  201 try {
+  202     const data = await req.json();
+  203     __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$utils$2f$logger$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].info('Received data for saving: ' + JSON.stringify(data));
+→ 204     const entry = await prisma.entry.create({
+            data: {
+              thoughts: [
+                "safsdfadsfsa"
+              ],
+              feelings: [
+                "Lonely"
+              ],
+              behaviors: [
+                "asfsdaadsf"
+              ],
+              coreBeliefs: {
+                negative: [],
+                positive: [
+                  "I am a good (loving) person."
+                ]
+              },
+          +   thought: String
+            }
+          })
+
+Argument `thought` is missing.
+[2024-12-27T05:36:27.278Z] ERROR: Error saving to database: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:204:42
+
+  201 async function POST(req) {
+  202     try {
+  203         const data = await req.json();
+→ 204         const entry = await prisma.entry.create({
+                data: {
+                  thoughts: "asfasd",
+                  feelings: "Lonely",
+                  behaviors: "asfdsad",
+                  coreBeliefs: "{\"negative\":[],\"positive\":[\"I am a good (loving) person.\"]}",
+              +   thought: String
+                }
+              })
+
+Argument `thought` is missing.
+[2024-12-27T05:40:31.116Z] ERROR: Error saving to database: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:204:42
+
+  201 async function POST(req) {
+  202     try {
+  203         const data = await req.json();
+→ 204         const entry = await prisma.entry.create({
+                data: {
+                  thoughts: "asfsadfsa",
+                  feelings: "Lonely",
+                  behaviors: "",
+                  coreBeliefs: "{\"negative\":[],\"positive\":[\"I am a good (loving) person.\"]}",
+              +   thought: String
+                }
+              })
+
+Argument `thought` is missing.
+[2024-12-27T05:58:52.801Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+The table `main.Entry` does not exist in the current database.
+[2024-12-27T06:00:23.772Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+The table `main.Entry` does not exist in the current database.
+[2024-12-27T06:11:43.894Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+The table `main.Entry` does not exist in the current database.
+[2024-12-27T06:16:09.393Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+The table `main.Entry` does not exist in the current database.
+[2024-12-27T06:17:56.008Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+The table `main.Entry` does not exist in the current database.
+[2024-12-27T06:20:07.900Z] INFO: Entry saved successfully: {"id":"cm56d5g0p00008n8956jm1z0x","createdAt":"2024-12-27T06:20:07.897Z","updatedAt":"2024-12-27T06:20:07.897Z","thoughts":"sadfsdafds,asdfdsa","feelings":"[{\"parent\":\"Happy\",\"subFeelings\":[\"Interested\"]},{\"parent\":\"Sad\",\"subFeelings\":[\"Powerless\"]}]","behaviors":"asfsdafads,asdfsad","coreBeliefs":"{\"negative\":[\"I am not lovable.\"],\"positive\":[\"I am worthy.\"]}"}
+[2024-12-27T06:39:03.752Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:39:43.689Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:40:05.988Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:41:40.705Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:42:16.856Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:54:24.476Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T08:41:15.836Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create({
+                data: {
+                  thoughts: "",
+                  feelings: "[]",
+                  behaviors: "",
+                  coreBeliefs: "{\"positive\":[],\"negative\":[]}",
+              +   pleasantness: Int
+                }
+              })
+
+Argument `pleasantness` is missing.

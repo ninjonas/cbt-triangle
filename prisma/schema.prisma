@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Entry {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  thoughts      String   // Comma-separated string for multiple thoughts
+  feelings      String   // JSON-encoded string for parent feelings and their sub-feelings
+  pleasantness  Int      // Value from 0 to 100 indicating how pleasant the user feels
+  unpleasantness Int     // Value from 0 to 100 indicating how unpleasant the user feels
+  behaviors     String   // Comma-separated string for multiple behaviors
+  coreBeliefs   String   // JSON-encoded string for negative and positive cognitions
+}

@@ -1,0 +1,78 @@
+[2024-12-27T06:39:03.752Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:39:43.689Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:40:05.988Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:41:40.705Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:42:16.856Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T06:54:24.476Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create(
+Error occurred during query execution:
+ConnectorError(ConnectorError { user_facing_error: None, kind: QueryError(SqliteError { extended_code: 1032, message: Some("attempt to write a readonly database") }), transient: false })
+[2024-12-27T08:41:15.836Z] ERROR: Error saving entry: 
+Invalid `prisma.entry.create()` invocation in
+/Users/jonas/development/cbt-app/.next/server/chunks/[root of the server]__237032._.js:203:42
+
+  200 async function POST(req) {
+  201     try {
+  202         const data = await req.json();
+→ 203         const entry = await prisma.entry.create({
+                data: {
+                  thoughts: "",
+                  feelings: "[]",
+                  behaviors: "",
+                  coreBeliefs: "{\"positive\":[],\"negative\":[]}",
+              +   pleasantness: Int
+                }
+              })
+
+Argument `pleasantness` is missing.
