@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import logger from '../../utils/logger'
+import logger from '../../utils/logger';
 
 const prisma = new PrismaClient();
 
@@ -8,12 +8,16 @@ export async function POST(req: Request) {
   try {
     const data = await req.json();
 
+    // Ensure all required fields are persisted
     const entry = await prisma.entry.create({
       data: {
+        situation: data.situation,                     // Persist situation as a string
         thoughts: data.thoughts.join(','),             // Convert array to comma-separated string
         feelings: JSON.stringify(data.feelings),      // Convert feelings to JSON string
-        behaviors: data.behaviors.join(','),          // Convert array to comma-separated string
-        coreBeliefs: JSON.stringify(data.coreBeliefs) // Convert cognitions to JSON string
+        pleasantness: data.pleasantness,               // Persist pleasantness as an integer
+        unpleasantness: data.unpleasantness,           // Persist unpleasantness as an integer
+        behaviors: data.behaviors.join(','),           // Convert array to comma-separated string
+        coreBeliefs: JSON.stringify(data.coreBeliefs), // Convert core beliefs to JSON string
       },
     });
 
