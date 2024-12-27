@@ -14,5 +14,13 @@ During my low points, I have used this method religiously. Over time, I'm able t
 
 I'm hoping this project will help me easily log my cognitions and hopefully start tracking trends what cognitions I should work on
 
+### Screenshots
+
+<img src="doc/step1.png">
+<img src="doc/step2.png">
+<img src="doc/step3.png">
+<img src="doc/step4.png">
+<img src="doc/step5.png">
+
 ## License
 This project is licensed under the MIT License.
