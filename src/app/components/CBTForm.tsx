@@ -229,41 +229,58 @@ const CBTForm = () => {
   };
 
   const generateSummaryText = () => {
-    const thoughtsText = thoughts.length ? `Thoughts:\n\t${thoughts.join(', ')}\n` : '';
-    const behaviorsText = behaviors.length ? `Behaviours:\n\t${behaviors.join(', ')}\n` : '';
+    const thoughtsText = thoughts.length
+      ? `Thoughts:\n\t${thoughts.join(", ")}\n`
+      : "";
+    const behaviorsText = behaviors.length
+      ? `Behaviours:\n\t${behaviors.join(", ")}\n`
+      : "";
     const feelingsText = feelingsState.length
       ? `Feelings: ${feelingsState
-          .map((feeling) => `${feeling.parent} (${feeling.subFeelings.join(', ')})`)
-          .join(', ')}\n`
-      : '';
-    const cognitionsText = `${coreBeliefs.positive.length ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(', ')}\n` : ''}${coreBeliefs.negative.length ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(', ')}\n` : ''}`;
-    const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(sliderValue)}\n`;
-  
+          .map(
+            (feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`
+          )
+          .join(", ")}\n`
+      : "";
+    const cognitionsText = `${
+      coreBeliefs.positive.length
+        ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n`
+        : ""
+    }${
+      coreBeliefs.negative.length
+        ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n`
+        : ""
+    }`;
+    const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(
+      sliderValue
+    )}\n`;
+
     return `${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
   };
 
   const getCurrentTimestamp = () => {
     const now = new Date();
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
       hour12: false,
     }).format(now);
   };
-  
 
   const handleCopyToClipboard = () => {
     const summaryText = `Date: ${getCurrentTimestamp()}\n${generateSummaryText()}`;
-    navigator.clipboard.writeText(summaryText).then(() => {
-      toast.success('Summary copied to clipboard!');
-    }).catch(() => {
-      toast.error('Failed to copy summary.');
-    });
+    navigator.clipboard
+      .writeText(summaryText)
+      .then(() => {
+        toast.success("Summary copied to clipboard!");
+      })
+      .catch(() => {
+        toast.error("Failed to copy summary.");
+      });
   };
-  
 
   return (
     <div className="max-w-lg mx-auto p-6 rounded-md shadow-md bg-white">
@@ -448,7 +465,7 @@ const CBTForm = () => {
           </h3>
           {/* Summary Message */}
           <div className="mt-4 p-4 bg-gray-100 rounded-md">
-          <p
+            <p
               className={`text-xl font-bold ${getPleasantnessLabelColor(
                 sliderValue
               )}`}
@@ -457,18 +474,18 @@ const CBTForm = () => {
             </p>
             <p className="text-gray-800 font-medium">{summaryMessage}</p>
             {/* Copy Button */}
-    <div className="flex justify-end mt-4">
-      <button
-        className="px-4 py-2 bg-gray-600 text-white rounded-md"
-        onClick={handleCopyToClipboard}
-        title="Copy to Clipboard"
-      >
-        📋
-      </button>
-    </div>
+            <div className="flex justify-end mt-4">
+              <button
+                className="px-4 py-2 bg-gray-600 text-white rounded-md"
+                onClick={handleCopyToClipboard}
+                title="Copy to Clipboard"
+              >
+                📋
+              </button>
+            </div>
           </div>
           <div>
-            <strong>Thoughts:</strong>
+            <h4 className="text-md font-bold mb-2 mt-4">Thoughts:</h4>
             <ul className="list-disc list-inside">
               {thoughts.map((thought, idx) => (
                 <li key={idx}>{thought}</li>
@@ -476,15 +493,7 @@ const CBTForm = () => {
             </ul>
           </div>
           <div>
-            <strong>Behaviors:</strong>
-            <ul className="list-disc list-inside">
-              {behaviors.map((behavior, idx) => (
-                <li key={idx}>{behavior}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <strong>Feelings:</strong>
+            <h4 className="text-md font-bold mb-2 mt-4">Feelings:</h4>
             <ul className="list-disc list-inside">
               {feelingsState.map((feeling, idx) => (
                 <li key={idx}>
@@ -494,15 +503,33 @@ const CBTForm = () => {
             </ul>
           </div>
           <div>
-            <strong>Cognitions:</strong>
+            <h4 className="text-md font-bold mb-2 mt-4">Behaviors:</h4>
             <ul className="list-disc list-inside">
-              {coreBeliefs.positive.length > 0 && (
-                <li>Positive: {coreBeliefs.positive.join(", ")}</li>
-              )}
-              {coreBeliefs.negative.length > 0 && (
-                <li>Negative: {coreBeliefs.negative.join(", ")}</li>
-              )}
+              {behaviors.map((behavior, idx) => (
+                <li key={idx}>{behavior}</li>
+              ))}
             </ul>
+          </div>
+          <div>
+            {["positive", "negative"].map((type) => {
+              const beliefs = coreBeliefs[type];
+              if (beliefs.length > 0) {
+                return (
+                  <div key={type}>
+                    <h4 className="text-md font-bold mb-2 mt-4">
+                      {type.charAt(0).toUpperCase() + type.slice(1)} Core
+                      Beliefs:
+                    </h4>
+                    <ul className="list-disc list-inside">
+                      {beliefs.map((belief, index) => (
+                        <li key={index}>{belief}</li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              }
+              return null;
+            })}
           </div>
         </div>
       )}
