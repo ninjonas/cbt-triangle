@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse, NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import logger from '../../utils/logger';
+import {printObjectProperties} from '../../utils/util';
 
 const prisma = new PrismaClient();
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
 
@@ -30,27 +30,29 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query;
-
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id');
+  logger.debug(printObjectProperties(req));
   if (id) {
-    // Fetch a single entry by ID
+    logger.debug("Id: " + id);
+    logger.debug("Fetch a single entry by ID"); 
     try {
       const entry = await prisma.entry.findUnique({
         where: { id: String(id) },
       });
       if (entry) {
-        return res.status(200).json(entry);
+        return NextResponse.json(entry, { status: 200 });
       } else {
-        logger.warning('Entry not found: ' + id);
-        return res.status(404).json({ error: 'Entry not found' });
+        logger.warn('Entry not found: ' + id);
+        return NextResponse.json({ error: 'Entry not found' }, { status: 404 });
       }
-    } catch (error:any) {
+    } catch (error: any) {
       logger.error('Error fetching entry: ' + error.message);
-      return res.status(500).json({ error: 'Failed to fetch entry' });
+      return NextResponse.json({ error: 'Failed to fetch entry' }, { status: 500 });
     }
   } else {
-    // Fetch all entries
+    logger.debug("Fetch all entries");
     try {
       const entries = await prisma.entry.findMany({
         select: {
@@ -63,10 +65,10 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         },
       });
 
-      return res.status(200).json(entries);
-    } catch (error:any) {
+      return NextResponse.json(entries, { status: 200 });
+    } catch (error: any) {
       logger.error('Error fetching entries: ' + error.message);
-      return res.status(500).json({ error: 'Failed to fetch entries' });
+      return NextResponse.json({ error: 'Failed to fetch entries' }, { status: 500 });
     }
   }
 }
