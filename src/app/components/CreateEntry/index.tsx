@@ -58,17 +58,7 @@ const CreateEntry = () => {
     negative: [] as string[],
   });
 
-  const toggleCoreBelief = (
-    type: "positive" | "negative",
-    cognition: string
-  ) => {
-    setCoreBeliefs((prev) => ({
-      ...prev,
-      [type]: prev[type].includes(cognition)
-        ? prev[type].filter((c) => c !== cognition)
-        : [...prev[type], cognition],
-    }));
-  };
+
 
   //End: Step 4
 
@@ -210,9 +200,8 @@ const CreateEntry = () => {
       {currentStep === 4 && (
         <Step4Cognitions
           coreBeliefs={coreBeliefs}
-          toggleCoreBelief={toggleCoreBelief}
-          handleNextStep={handleNextStep}
-          handlePreviousStep={handlePreviousStep}
+          setCoreBeliefs={setCoreBeliefs}
+          sliderValue={sliderValue}
         />
       )}
 
