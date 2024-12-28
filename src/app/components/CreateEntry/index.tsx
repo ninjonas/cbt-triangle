@@ -214,8 +214,6 @@ const CreateEntry = () => {
           behaviors={behaviors}
           coreBeliefs={coreBeliefs}
           sliderValue={sliderValue}
-          handlePreviousStep={handlePreviousStep}
-          handleSubmit={handleSubmit}
         />
       )}
 

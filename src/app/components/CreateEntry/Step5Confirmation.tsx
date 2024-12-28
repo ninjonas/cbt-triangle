@@ -1,38 +1,16 @@
 import React from 'react';
 import { toast } from "react-hot-toast";
 
-export interface StepComponentProps {
+export interface Step5Props {
     situation: string;
     thoughts: string[];
-    feelingsState: {
-      parent: string;
-      subFeelings: string[];
-    }[];
+    feelingsState: { parent: string; subFeelings: string[]; }[];
     behaviors: string[];
-    coreBeliefs: {
-      positive: string[];
-      negative: string[];
-    };
+    coreBeliefs: { positive: string[]; negative: string[]; };
     sliderValue: number;
-    handleNextStep?: () => void;
-    handlePreviousStep: () => void;
-    handleSubmit?: () => void;
-    setSituation?: (situation: string) => void;
-    setThoughts?: (thoughts: string[]) => void;
-    setFeelingsState?: (feelings: { parent: string; subFeelings: string[] }[]) => void;
-    setBehaviors?: (behaviors: string[]) => void;
-    setCoreBeliefs?: (coreBeliefs: { positive: string[]; negative: string[] }) => void;
-    setSliderValue?: (value: number) => void;
-    newThought?: string;
-    setNewThought?: (thought: string) => void;
-    handleAddThought?: () => void;
-    newBehavior?: string;
-    setNewBehavior?: (behavior: string) => void;
-    handleAddBehavior?: () => void;
-    toggleCoreBelief?: (belief: string, type: "positive" | "negative") => void;
   }
 
-const Step5Confirmation: React.FC<StepComponentProps> = ({
+const Step5Confirmation: React.FC<Step5Props> = ({
   situation,
   thoughts,
   feelingsState,
