@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import logger from '../../utils/logger';
-import {printObjectProperties} from '../../utils/util';
 
 const prisma = new PrismaClient();
 
@@ -33,10 +32,9 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get('id');
-  logger.debug(printObjectProperties(req));
+
   if (id) {
-    logger.debug("Id: " + id);
-    logger.debug("Fetch a single entry by ID"); 
+    // Fetch a single entry by ID
     try {
       const entry = await prisma.entry.findUnique({
         where: { id: String(id) },
@@ -52,7 +50,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Failed to fetch entry' }, { status: 500 });
     }
   } else {
-    logger.debug("Fetch all entries");
+    // Fetch all entries
     try {
       const entries = await prisma.entry.findMany({
         select: {
