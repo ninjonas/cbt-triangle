@@ -34,9 +34,7 @@ const CreateEntry = () => {
   //Begin: Step 2
   const [sliderValue, setSliderValue] = useState(51);
   const [feelingsState, setFeelingsState] = useState<Feeling[]>([]);
-  const [expandedFeelingsCategories, setExpandedFeelingsCategories] = useState<
-    string[]
-  >([]);
+  const [expandedFeelingsCategories, setExpandedFeelingsCategories] = useState<string[]>([]);
 
   //End: Step 2
 
@@ -58,13 +56,7 @@ const CreateEntry = () => {
     negative: [] as string[],
   });
 
-
-
   //End: Step 4
-
-  //Begin: Step 5
-
-  //End: Step 5
 
   const handleSubmit = async () => {
     if (!validateStep()) return;
@@ -97,8 +89,12 @@ const CreateEntry = () => {
       setFeelingsState([]);
       setCoreBeliefs({ positive: [], negative: [] });
       setCurrentStep(1);
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred while saving");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Error deleting entry:", error.message);
+      } else {
+        console.error("Unknown error deleting entry");
+      }
     }
   };
 
@@ -127,10 +123,7 @@ const CreateEntry = () => {
         }
         break;
       case 4:
-        if (
-          coreBeliefs.positive.length === 0 &&
-          coreBeliefs.negative.length === 0
-        ) {
+        if (coreBeliefs.positive.length === 0 && coreBeliefs.negative.length === 0) {
           toast.error("Please select at least one cognition.");
           return false;
         }
@@ -155,10 +148,7 @@ const CreateEntry = () => {
     <div className="max-w-xl mx-auto p-3 rounded-md shadow-md bg-white">
       {/* Progress Bar */}
       <div className="w-full bg-gray-300 rounded-full h-2 mb-4">
-        <div
-          className="bg-blue-600 h-2 rounded-full"
-          style={{ width: `${(currentStep / steps) * 100}%` }}
-        ></div>
+        <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${(currentStep / steps) * 100}%` }}></div>
       </div>
 
       {/* Step 1: Thoughts */}
@@ -186,24 +176,10 @@ const CreateEntry = () => {
       )}
 
       {/* Step 3: Behaviors */}
-      {currentStep === 3 && (
-        <Step3Behaviors
-          behaviors={behaviors}
-          setBehaviors={setBehaviors}
-          newBehavior={newBehavior}
-          setNewBehavior={setNewBehavior}
-          handleAddBehavior={handleAddBehavior}
-        />
-      )}
+      {currentStep === 3 && <Step3Behaviors behaviors={behaviors} newBehavior={newBehavior} setNewBehavior={setNewBehavior} handleAddBehavior={handleAddBehavior} />}
 
       {/* Step 4: Cognitions */}
-      {currentStep === 4 && (
-        <Step4Cognitions
-          coreBeliefs={coreBeliefs}
-          setCoreBeliefs={setCoreBeliefs}
-          sliderValue={sliderValue}
-        />
-      )}
+      {currentStep === 4 && <Step4Cognitions coreBeliefs={coreBeliefs} setCoreBeliefs={setCoreBeliefs} sliderValue={sliderValue} />}
 
       {/* Step 5: Confirmation */}
       {currentStep === 5 && (
@@ -218,13 +194,7 @@ const CreateEntry = () => {
       )}
 
       {/* Navigation Buttons */}
-      <NavigationButtons
-        currentStep={currentStep}
-        steps={steps}
-        handlePreviousStep={handlePreviousStep}
-        handleNextStep={handleNextStep}
-        handleSubmit={handleSubmit}
-      />
+      <NavigationButtons currentStep={currentStep} steps={steps} handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} handleSubmit={handleSubmit} />
     </div>
   );
 };

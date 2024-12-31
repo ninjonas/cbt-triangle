@@ -2,9 +2,21 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { getPleasantnessLabel } from "../CreateEntry/common";
 
+interface Entry {
+  id: string;
+  situation: string;
+  thoughts?: string;
+  coreBeliefs?: string;
+  behaviors?: string;
+  feelings?: string;
+  pleasantness: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const DisplayEntries = () => {
-  const [entries, setEntries] = useState([]);
-  const [selectedEntry, setSelectedEntry] = useState(null);
+  const [entries, setEntries] = useState<Entry[]>([]);
+  const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuDropdownOpen, setIsMenuDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,10 +27,15 @@ const DisplayEntries = () => {
     const fetchEntries = async () => {
       try {
         const response = await axios.get("/api/entries");
-        const sortedEntries = response.data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-        setEntries(sortedEntries);
-        if (sortedEntries.length > 0) {
-          setSelectedEntry(sortedEntries[0]);
+        console.log("API response:", response.data);
+        if (Array.isArray(response.data)) {
+          const sortedEntries: Entry[] = response.data.sort((a: Entry, b: Entry) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+          setEntries(sortedEntries);
+          if (sortedEntries.length > 0) {
+            setSelectedEntry(sortedEntries[0]);
+          }
+        } else {
+          console.error("API response is not an array:", response.data);
         }
       } catch (error) {
         console.error("Error fetching entries:", error);
@@ -50,12 +67,16 @@ const DisplayEntries = () => {
       setToastMessage("Entry deleted successfully");
       setIsModalOpen(false);
       const response = await axios.get("/api/entries");
-      const sortedEntries = response.data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-      setEntries(sortedEntries);
-      if (sortedEntries.length > 0) {
-        setSelectedEntry(sortedEntries[0]);
+      if (Array.isArray(response.data)) {
+        const sortedEntries: Entry[] = response.data.sort((a: Entry, b: Entry) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        setEntries(sortedEntries);
+        if (sortedEntries.length > 0) {
+          setSelectedEntry(sortedEntries[0]);
+        } else {
+          setSelectedEntry(null);
+        }
       } else {
-        setSelectedEntry(null);
+        console.error("API response is not an array:", response.data);
       }
     } catch (error) {
       console.error("Error deleting entry:", error);

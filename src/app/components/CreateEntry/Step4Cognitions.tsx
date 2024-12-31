@@ -6,43 +6,33 @@ interface Step4Props {
     positive: string[];
     negative: string[];
   };
-  setCoreBeliefs?: (coreBeliefs: {
-    positive: string[];
-    negative: string[];
-  }) => void;
+  setCoreBeliefs: React.Dispatch<
+    React.SetStateAction<{
+      positive: string[];
+      negative: string[];
+    }>
+  >;
   sliderValue: number;
 }
 
-const Step4Cognitions: React.FC<Step4Props> = ({
-  coreBeliefs,
-  setCoreBeliefs,
-  sliderValue,
-}) => {
-  const displayedCognitions =
-    sliderValue >= 50 ? positiveCognitions : negativeCognitions;
+const Step4Cognitions: React.FC<Step4Props> = ({ coreBeliefs, setCoreBeliefs, sliderValue }) => {
+  const displayedCognitions = sliderValue >= 50 ? positiveCognitions : negativeCognitions;
 
   const cognitionMessage =
     sliderValue >= 50
       ? "Based on your pleasantness level, we are displaying positive cognitions to help reinforce your positive mindset."
       : "Based on your pleasantness level, we are displaying negative cognitions to help identify areas to challenge or reframe.";
 
-  const toggleCoreBelief = (
-    type: "positive" | "negative",
-    cognition: string
-  ) => {
+  const toggleCoreBelief = (type: "positive" | "negative", cognition: string) => {
     setCoreBeliefs((prev) => ({
       ...prev,
-      [type]: prev[type].includes(cognition)
-        ? prev[type].filter((c) => c !== cognition)
-        : [...prev[type], cognition],
+      [type]: prev[type].includes(cognition) ? prev[type].filter((c) => c !== cognition) : [...prev[type], cognition],
     }));
   };
 
   return (
     <div>
-      <h3 className="text-lg font-semibold mb-2 text-gray-800">
-        Select Cognitions
-      </h3>
+      <h3 className="text-lg font-semibold mb-2 text-gray-800">Select Cognitions</h3>
       <p className="mb-4 text-sm text-gray-600">{cognitionMessage}</p>
       <div className="grid grid-cols-2 gap-2">
         {displayedCognitions.map((cognition) => (
@@ -57,12 +47,7 @@ const Step4Cognitions: React.FC<Step4Props> = ({
                 ? "bg-red-500 text-white"
                 : "bg-gray-200"
             }`}
-            onClick={() =>
-              toggleCoreBelief(
-                sliderValue > 50 ? "positive" : "negative",
-                cognition
-              )
-            }
+            onClick={() => toggleCoreBelief(sliderValue > 50 ? "positive" : "negative", cognition)}
           >
             {cognition}
           </button>

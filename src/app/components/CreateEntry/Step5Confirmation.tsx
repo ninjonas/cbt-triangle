@@ -1,23 +1,20 @@
-import React from 'react';
+import React from "react";
 import { toast } from "react-hot-toast";
 
+interface CoreBeliefs {
+  positive: string[];
+  negative: string[];
+}
 export interface Step5Props {
-    situation: string;
-    thoughts: string[];
-    feelingsState: { parent: string; subFeelings: string[]; }[];
-    behaviors: string[];
-    coreBeliefs: { positive: string[]; negative: string[]; };
-    sliderValue: number;
-  }
+  situation: string;
+  thoughts: string[];
+  feelingsState: { parent: string; subFeelings: string[] }[];
+  behaviors: string[];
+  coreBeliefs: { positive: string[]; negative: string[] };
+  sliderValue: number;
+}
 
-const Step5Confirmation: React.FC<Step5Props> = ({
-  situation,
-  thoughts,
-  feelingsState,
-  behaviors,
-  coreBeliefs,
-  sliderValue,
-}) => {
+const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelingsState, behaviors, coreBeliefs, sliderValue }) => {
   const getPleasantnessLabel = (value: number) => {
     if (value <= 20) return "😞 Very Unpleasant";
     if (value <= 40) return "😕 Unpleasant";
@@ -51,31 +48,13 @@ const Step5Confirmation: React.FC<Step5Props> = ({
   const summaryMessage = getSummaryMessage();
 
   const generateClipboardSummaryText = () => {
-    const thoughtsText = thoughts.length
-      ? `Thoughts:\n\t${thoughts.join(", ")}\n`
-      : "";
-    const behaviorsText = behaviors.length
-      ? `Behaviours:\n\t${behaviors.join(", ")}\n`
-      : "";
-    const feelingsText = feelingsState.length
-      ? `Feelings: ${feelingsState
-          .map(
-            (feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`
-          )
-          .join(", ")}\n`
-      : "";
-    const cognitionsText = `${
-      coreBeliefs.positive.length
-        ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n`
-        : ""
-    }${
-      coreBeliefs.negative.length
-        ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n`
-        : ""
+    const thoughtsText = thoughts.length ? `Thoughts:\n\t${thoughts.join(", ")}\n` : "";
+    const behaviorsText = behaviors.length ? `Behaviours:\n\t${behaviors.join(", ")}\n` : "";
+    const feelingsText = feelingsState.length ? `Feelings: ${feelingsState.map((feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`).join(", ")}\n` : "";
+    const cognitionsText = `${coreBeliefs.positive.length ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n` : ""}${
+      coreBeliefs.negative.length ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n` : ""
     }`;
-    const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(
-      sliderValue
-    )}\n`;
+    const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(sliderValue)}\n`;
 
     const situationText = `Situation: ${situation}\n`;
 
@@ -108,79 +87,64 @@ const Step5Confirmation: React.FC<Step5Props> = ({
 
   return (
     <div>
-          <h3 className="text-lg font-semibold mb-2 text-gray-800">
-            Confirmation
-          </h3>
-          {/* Summary Message */}
-          <div className="mt-4 p-4 bg-gray-100 rounded-md">
-            <p
-              className={`text-xl font-bold ${getPleasantnessLabelColor(
-                sliderValue
-              )}`}
-            >
-              {getPleasantnessLabel(sliderValue)}
-            </p>
-            <h4 className="text-md font-bold mb-2 mt-4">{situation}</h4>
-            <p className="text-gray-800 font-medium">{summaryMessage}</p>
-            {/* Copy Button */}
-            <div className="flex justify-end mt-4">
-              <button
-                className="px-4 py-2 bg-gray-600 text-white rounded-md"
-                onClick={handleCopyToClipboard}
-                title="Copy to Clipboard"
-              >
-                📋
-              </button>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-md font-bold mb-2 mt-4">Thoughts:</h4>
-            <ul className="list-disc list-inside">
-              {thoughts.map((thought, idx) => (
-                <li key={idx}>{thought}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-md font-bold mb-2 mt-4">Feelings:</h4>
-            <ul className="list-disc list-inside">
-              {feelingsState.map((feeling, idx) => (
-                <li key={idx}>
-                  {feeling.parent} - {feeling.subFeelings.join(", ")}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-md font-bold mb-2 mt-4">Behaviors:</h4>
-            <ul className="list-disc list-inside">
-              {behaviors.map((behavior, idx) => (
-                <li key={idx}>{behavior}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            {["positive", "negative"].map((type) => {
-              const beliefs = coreBeliefs[type];
-              if (beliefs.length > 0) {
-                return (
-                  <div key={type}>
-                    <h4 className="text-md font-bold mb-2 mt-4">
-                      {type.charAt(0).toUpperCase() + type.slice(1)} Core
-                      Beliefs:
-                    </h4>
-                    <ul className="list-disc list-inside">
-                      {beliefs.map((belief, index) => (
-                        <li key={index}>{belief}</li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              }
-              return null;
-            })}
-          </div>
+      <h3 className="text-lg font-semibold mb-2 text-gray-800">Confirmation</h3>
+      {/* Summary Message */}
+      <div className="mt-4 p-4 bg-gray-100 rounded-md">
+        <p className={`text-xl font-bold ${getPleasantnessLabelColor(sliderValue)}`}>{getPleasantnessLabel(sliderValue)}</p>
+        <h4 className="text-md font-bold mb-2 mt-4">{situation}</h4>
+        <p className="text-gray-800 font-medium">{summaryMessage}</p>
+        {/* Copy Button */}
+        <div className="flex justify-end mt-4">
+          <button className="px-4 py-2 bg-gray-600 text-white rounded-md" onClick={handleCopyToClipboard} title="Copy to Clipboard">
+            📋
+          </button>
         </div>
+      </div>
+      <div>
+        <h4 className="text-md font-bold mb-2 mt-4">Thoughts:</h4>
+        <ul className="list-disc list-inside">
+          {thoughts.map((thought, idx) => (
+            <li key={idx}>{thought}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4 className="text-md font-bold mb-2 mt-4">Feelings:</h4>
+        <ul className="list-disc list-inside">
+          {feelingsState.map((feeling, idx) => (
+            <li key={idx}>
+              {feeling.parent} - {feeling.subFeelings.join(", ")}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4 className="text-md font-bold mb-2 mt-4">Behaviors:</h4>
+        <ul className="list-disc list-inside">
+          {behaviors.map((behavior, idx) => (
+            <li key={idx}>{behavior}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        {["positive", "negative"].map((type) => {
+          const beliefs = coreBeliefs[type as keyof CoreBeliefs];
+          if (beliefs.length > 0) {
+            return (
+              <div key={type}>
+                <h4 className="text-md font-bold mb-2 mt-4">{type.charAt(0).toUpperCase() + type.slice(1)} Core Beliefs:</h4>
+                <ul className="list-disc list-inside">
+                  {beliefs.map((belief, index) => (
+                    <li key={index}>{belief}</li>
+                  ))}
+                </ul>
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+    </div>
   );
 };
 
