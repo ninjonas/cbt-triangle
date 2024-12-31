@@ -6,6 +6,7 @@ const DisplayEntries = () => {
   const [entries, setEntries] = useState([]);
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMenuDropdownOpen, setIsMenuDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -82,6 +83,7 @@ const DisplayEntries = () => {
                   onClick={() => {
                     handleEntryClick(entry.id);
                     setIsDropdownOpen(false);
+                    setIsMenuDropdownOpen(false);
                   }}
                   className={`p-4 cursor-pointer transition-colors ${selectedEntry?.id === entry.id ? "bg-gray-200" : "hover:bg-gray-100"}`}
                 >
@@ -102,14 +104,14 @@ const DisplayEntries = () => {
               <div className="flex justify-between items-center">
                 <h3 className="text-xl font-bold mt-4 mb-2 border-b pb-2">{selectedEntry.situation}</h3>
                 <div className="relative">
-                  <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="text-gray-500 hover:text-gray-700">
+                  <button onClick={() => setIsMenuDropdownOpen(!isMenuDropdownOpen)} className="text-gray-500 hover:text-gray-700">
                     &#x22EE;
                   </button>
-                  {!isDropdownOpen && (
+                  {isMenuDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
                       <button
                         onClick={() => {
-                          setIsDropdownOpen(false);
+                          setIsMenuDropdownOpen(false);
                           setIsModalOpen(true);
                         }}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
