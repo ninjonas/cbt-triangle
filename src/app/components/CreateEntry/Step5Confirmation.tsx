@@ -23,29 +23,19 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
     return "😄 Very Pleasant";
   };
 
-  const getPleasantnessLabelColor = (value: number) => {
-    if (value <= 20) return "text-red-500"; // Very Unpleasant
-    if (value <= 40) return "text-orange-500"; // Unpleasant
-    if (value <= 60) return "text-gray-500"; // Neutral
-    if (value <= 80) return "text-green-500"; // Pleasant
-    return "text-emerald-500"; // Very Pleasant
-  };
-
-  const getSummaryMessage = () => {
-    if (sliderValue <= 20) {
+  const getFeelingSummaryMessage = (value: number) => {
+    if (value <= 20) {
       return "You’re taking an important step by reflecting on your feelings. It’s okay to feel this way sometimes. Keep logging your thoughts and emotions, and remember: small steps lead to big changes!";
-    } else if (sliderValue <= 40) {
+    } else if (value <= 40) {
       return "You’re doing a great job by acknowledging your emotions. This is a crucial part of self-care. Continue journaling and exploring what’s on your mind—things will improve over time.";
-    } else if (sliderValue <= 60) {
+    } else if (value <= 60) {
       return "You’re in a reflective state. This is a great opportunity to examine both what’s working and what could improve. Keep building your self-awareness and maintaining balance in your emotions.";
-    } else if (sliderValue <= 80) {
+    } else if (value <= 80) {
       return "You’re in a good place emotionally! Keep reinforcing these positive feelings by engaging in activities you enjoy and nurturing your healthy habits.";
     } else {
       return "Fantastic! You’re radiating positivity right now. Keep up the great work, and continue the habits that bring you joy and fulfillment. Share this positivity with others too!";
     }
   };
-
-  const summaryMessage = getSummaryMessage();
 
   const generateClipboardSummaryText = () => {
     const thoughtsText = thoughts.length ? `Thoughts:\n\t- ${thoughts.join("\n\t- ")}\n` : "";
@@ -90,7 +80,7 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
         document.body.removeChild(textArea);
         toast.success("Summary copied to clipboard!");
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to copy summary.");
     }
   };
@@ -106,7 +96,7 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
               📋
             </button>
           </div>
-          <p className="text-gray-800 font-small">{summaryMessage}</p>
+          <p className="text-gray-800 font-small">{getFeelingSummaryMessage(sliderValue)}</p>
         </div>
         <div>
           <strong className="text-gray-700">Thoughts:</strong>

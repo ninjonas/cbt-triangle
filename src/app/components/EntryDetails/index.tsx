@@ -84,7 +84,7 @@ const EntryDetails: React.FC<EntryDetailsProps> = ({ entry }) => {
                   <>
                     <span className="font-bold text-sm">Positive</span>
                     <ul className="list-disc list-inside ml-4">
-                      {JSON.parse(entry.coreBeliefs).positive.map((belief: string, index: number) => (
+                      {(JSON.parse(entry.coreBeliefs) as CoreBeliefs).positive.map((belief: string, index: number) => (
                         <li className="text-xs" key={index}>
                           {belief}
                         </li>
@@ -92,7 +92,7 @@ const EntryDetails: React.FC<EntryDetailsProps> = ({ entry }) => {
                     </ul>
                   </>
                 )}
-                {JSON.parse(entry.coreBeliefs).negative.length > 0 && (
+                {(JSON.parse(entry.coreBeliefs) as CoreBeliefs).negative.length > 0 && (
                   <>
                     <span className="font-bold text-sm">Negative</span>
                     <ul className="list-disc list-inside ml-4">
