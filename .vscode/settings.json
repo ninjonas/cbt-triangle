@@ -1,10 +1,37 @@
 {
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "CBT",
-            "database": "prisma/dev.db"
-        }
-    ]
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    }
+  },
+  "editor.formatOnSave": true,
+  "editor.mouseWheelZoom": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "python.analysis.autoImportCompletions": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#0a11ea"
+  },
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.unittestEnabled": true,
+  "python.testing.pytestEnabled": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "CBT",
+      "database": "prisma/dev.db"
+    }
+  ],
+  "prettier.printWidth": 170,
+  "prettier.proseWrap": "always"
 }
