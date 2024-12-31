@@ -48,11 +48,13 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
   const summaryMessage = getSummaryMessage();
 
   const generateClipboardSummaryText = () => {
-    const thoughtsText = thoughts.length ? `Thoughts:\n\t${thoughts.join(", ")}\n` : "";
-    const behaviorsText = behaviors.length ? `Behaviours:\n\t${behaviors.join(", ")}\n` : "";
-    const feelingsText = feelingsState.length ? `Feelings: ${feelingsState.map((feeling) => `${feeling.parent} (${feeling.subFeelings.join(", ")})`).join(", ")}\n` : "";
-    const cognitionsText = `${coreBeliefs.positive.length ? `Positive Cognitions:\n\t${coreBeliefs.positive.join(", ")}\n` : ""}${
-      coreBeliefs.negative.length ? `Negative Cognitions:\n\t${coreBeliefs.negative.join(", ")}\n` : ""
+    const thoughtsText = thoughts.length ? `Thoughts:\n\t- ${thoughts.join("\n\t- ")}\n` : "";
+    const behaviorsText = behaviors.length ? `Behaviours:\n\t- ${behaviors.join("\n\t- ")}\n` : "";
+    const feelingsText = feelingsState.length
+      ? `Feelings: ${feelingsState.map((feeling) => `\n\t- ${feeling.parent}\n\t\t(${feeling.subFeelings.join(", ")})`).join("")}\n`
+      : "";
+    const cognitionsText = `${coreBeliefs.positive.length ? `Positive Cognitions:\n\t- ${coreBeliefs.positive.join("\n\t- ")}\n` : ""}${
+      coreBeliefs.negative.length ? `Negative Cognitions:\n\t- ${coreBeliefs.negative.join("\n\t- ")}\n` : ""
     }`;
     const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(sliderValue)}\n`;
 
@@ -73,16 +75,24 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
     }).format(now);
   };
 
-  const handleCopyToClipboard = () => {
-    const summaryText = `Date: ${getCurrentTimestamp()}\n${generateClipboardSummaryText()}`;
-    navigator.clipboard
-      .writeText(summaryText)
-      .then(() => {
+  const handleCopyToClipboard = async () => {
+    const summaryText = `Date: ${getCurrentTimestamp()} #cbt-triangle \n${generateClipboardSummaryText()}`;
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(summaryText);
         toast.success("Summary copied to clipboard!");
-      })
-      .catch(() => {
-        toast.error("Failed to copy summary.");
-      });
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = summaryText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        toast.success("Summary copied to clipboard!");
+      }
+    } catch (error) {
+      toast.error("Failed to copy summary.");
+    }
   };
 
   return (
