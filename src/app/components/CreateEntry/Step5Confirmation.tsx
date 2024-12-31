@@ -1,5 +1,6 @@
 import React from "react";
 import { toast } from "react-hot-toast";
+import { getPleasantnessLabel } from "./common";
 
 interface CoreBeliefs {
   positive: string[];
@@ -15,14 +16,6 @@ export interface Step5Props {
 }
 
 const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelingsState, behaviors, coreBeliefs, sliderValue }) => {
-  const getPleasantnessLabel = (value: number) => {
-    if (value <= 20) return "😞 Very Unpleasant";
-    if (value <= 40) return "😕 Unpleasant";
-    if (value <= 60) return "😐 Neutral";
-    if (value <= 80) return "🙂 Pleasant";
-    return "😄 Very Pleasant";
-  };
-
   const getFeelingSummaryMessage = (value: number) => {
     if (value <= 20) {
       return "You’re taking an important step by reflecting on your feelings. It’s okay to feel this way sometimes. Keep logging your thoughts and emotions, and remember: small steps lead to big changes!";
@@ -41,16 +34,15 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
     const thoughtsText = thoughts.length ? `Thoughts:\n\t- ${thoughts.join("\n\t- ")}\n` : "";
     const behaviorsText = behaviors.length ? `Behaviours:\n\t- ${behaviors.join("\n\t- ")}\n` : "";
     const feelingsText = feelingsState.length
-      ? `Feelings: ${feelingsState.map((feeling) => `\n\t- ${feeling.parent}\n\t\t(${feeling.subFeelings.join(", ")})`).join("")}\n`
+      ? `Feeling - ${getPleasantnessLabel(sliderValue)}: ${feelingsState.map((feeling) => `\n\t- ${feeling.parent}\n\t\t(${feeling.subFeelings.join(", ")})`).join("")}\n`
       : "";
     const cognitionsText = `${coreBeliefs.positive.length ? `Positive Cognitions:\n\t- ${coreBeliefs.positive.join("\n\t- ")}\n` : ""}${
       coreBeliefs.negative.length ? `Negative Cognitions:\n\t- ${coreBeliefs.negative.join("\n\t- ")}\n` : ""
     }`;
-    const pleasantnessText = `Pleasantness: ${getPleasantnessLabel(sliderValue)}\n`;
 
     const situationText = `Situation: ${situation}\n`;
 
-    return `${situationText}${pleasantnessText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
+    return `${situationText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
   };
 
   const getCurrentTimestamp = () => {
