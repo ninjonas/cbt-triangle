@@ -8,15 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "prisma:migrate": "prisma migrate dev --schema=prisma/schema.prisma",
-    "clean": "rm -rf .next",
-    "cap:build": "npm run build &&  npx cap copy",
-    "cap:open:ios": "npx cap open ios",
-    "cap:sync": "npx cap sync"
+    "clean": "rm -rf .next"
   },
   "dependencies": {
-    "@capacitor/cli": "^6.2.0",
-    "@capacitor/core": "^6.2.0",
-    "@capacitor/ios": "^6.2.0",
     "@prisma/client": "^6.1.0",
     "axios": "^1.7.9",
     "next": "15.1.3",

@@ -80,15 +80,14 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
   return (
     <div>
       <div className="space-y-2">
-        {/* Summary Message */}
-        <div className="mt-4 p-4 bg-gray-100 rounded-md">
-          <div className="flex justify-between items-center mt-4 mb-2 border-b pb-2">
-            <h3 className="text-xl font-bold">{situation}</h3>
-            <button className="px-4 py-2 bg-gray-600 text-white rounded-md" onClick={handleCopyToClipboard} title="Copy to Clipboard">
-              📋
-            </button>
-          </div>
+        <div className="mt-4 p-4 bg-gray-100 rounded-md border">
           <p className="text-gray-800 font-small">{getFeelingSummaryMessage(sliderValue)}</p>
+        </div>
+        <div className="flex justify-between items-center mt-4 mb-2 border-b pb-2">
+          <h3 className="text-xl font-bold">{situation}</h3>
+          <button className="px-4 py-2 bg-gray-100 text-white rounded-md hover:bg-gray-500" onClick={handleCopyToClipboard} title="Copy to Clipboard">
+            📋
+          </button>
         </div>
         <div>
           <strong className="text-gray-700">Thoughts:</strong>
