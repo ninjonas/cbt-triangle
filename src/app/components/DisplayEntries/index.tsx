@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { getPleasantnessLabel } from "../CreateEntry/common";
+import EntryDetails from "../EntryDetails/index";
 
 interface Entry {
   id: string;
@@ -143,87 +143,7 @@ const DisplayEntries = () => {
                   )}
                 </div>
               </div>
-              <div className="space-y-2">
-                <p className="text-xs text-gray-500 inline">
-                  <strong className="text-gray-700">Created:</strong> {new Date(selectedEntry.createdAt).toLocaleString()}
-                </p>
-                <p className="text-xs text-gray-500 inline ml-2">
-                  <strong className="text-gray-700">Updated:</strong> {new Date(selectedEntry.updatedAt).toLocaleString()}
-                </p>
-                <div>
-                  <strong className="text-gray-700">Thoughts:</strong>
-                  <ul className="list-disc list-inside ml-4">
-                    {selectedEntry.thoughts?.split(",").map((thought, index) => (
-                      <li className="text-xs" key={index}>
-                        {thought}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <strong className="text-gray-700">Behaviors:</strong>
-                  <ul className="list-disc list-inside ml-4">
-                    {selectedEntry.behaviors?.split(",").map((behavior, index) => (
-                      <li className="text-xs" key={index}>
-                        {behavior}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <strong className="text-gray-700 mt-2">{getPleasantnessLabel(selectedEntry.pleasantness)}</strong>
-
-                  <ul className="list-disc list-inside ml-4">
-                    {selectedEntry.feelings &&
-                      JSON.parse(selectedEntry.feelings).map((feeling: { parent: string; subFeelings: string[] }, index: number) => (
-                        <li key={index} className="list-none">
-                          <span className="font-bold text-xs">{feeling.parent}</span>
-                          <ul className="list-none flex flex-wrap gap-2 mt-2">
-                            {feeling.subFeelings.map((subFeeling, subIndex) => (
-                              <li key={subIndex} className="bg-gray-200 rounded-full px-3 py-1 text-xs">
-                                {subFeeling}
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-                <div>
-                  <strong className="text-gray-700">Core Beliefs:</strong>
-                  <ul className="list-disc list-inside ml-4">
-                    {selectedEntry.coreBeliefs && (
-                      <div>
-                        {JSON.parse(selectedEntry.coreBeliefs).positive.length > 0 && (
-                          <>
-                            <span className="font-bold text-sm">Positive</span>
-                            <ul className="list-disc list-inside ml-4">
-                              {JSON.parse(selectedEntry.coreBeliefs).positive.map((belief: string, index: number) => (
-                                <li className="text-xs" key={index}>
-                                  {belief}
-                                </li>
-                              ))}
-                            </ul>
-                          </>
-                        )}
-                        {JSON.parse(selectedEntry.coreBeliefs).negative.length > 0 && (
-                          <>
-                            <span className="font-bold text-sm">Negative</span>
-                            <ul className="list-disc list-inside ml-4">
-                              {JSON.parse(selectedEntry.coreBeliefs).negative.map((belief: string, index: number) => (
-                                <li className="text-xs" key={index}>
-                                  {belief}
-                                </li>
-                              ))}
-                            </ul>
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </ul>
-                </div>
-              </div>
+              <EntryDetails entry={selectedEntry} />
             </div>
           )
         )}

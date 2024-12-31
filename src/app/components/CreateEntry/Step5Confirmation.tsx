@@ -97,62 +97,79 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
 
   return (
     <div>
-      <h3 className="text-lg font-semibold mb-2 text-gray-800">Confirmation</h3>
-      {/* Summary Message */}
-      <div className="mt-4 p-4 bg-gray-100 rounded-md">
-        <p className={`text-xl font-bold ${getPleasantnessLabelColor(sliderValue)}`}>{getPleasantnessLabel(sliderValue)}</p>
-        <h4 className="text-md font-bold mb-2 mt-4">{situation}</h4>
-        <p className="text-gray-800 font-medium">{summaryMessage}</p>
-        {/* Copy Button */}
-        <div className="flex justify-end mt-4">
-          <button className="px-4 py-2 bg-gray-600 text-white rounded-md" onClick={handleCopyToClipboard} title="Copy to Clipboard">
-            📋
-          </button>
+      <div className="space-y-2">
+        {/* Summary Message */}
+        <div className="mt-4 p-4 bg-gray-100 rounded-md">
+          <div className="flex justify-between items-center mt-4 mb-2 border-b pb-2">
+            <h3 className="text-xl font-bold">{situation}</h3>
+            <button className="px-4 py-2 bg-gray-600 text-white rounded-md" onClick={handleCopyToClipboard} title="Copy to Clipboard">
+              📋
+            </button>
+          </div>
+          <p className="text-gray-800 font-small">{summaryMessage}</p>
         </div>
-      </div>
-      <div>
-        <h4 className="text-md font-bold mb-2 mt-4">Thoughts:</h4>
-        <ul className="list-disc list-inside">
-          {thoughts.map((thought, idx) => (
-            <li key={idx}>{thought}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h4 className="text-md font-bold mb-2 mt-4">Feelings:</h4>
-        <ul className="list-disc list-inside">
-          {feelingsState.map((feeling, idx) => (
-            <li key={idx}>
-              {feeling.parent} - {feeling.subFeelings.join(", ")}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h4 className="text-md font-bold mb-2 mt-4">Behaviors:</h4>
-        <ul className="list-disc list-inside">
-          {behaviors.map((behavior, idx) => (
-            <li key={idx}>{behavior}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        {["positive", "negative"].map((type) => {
-          const beliefs = coreBeliefs[type as keyof CoreBeliefs];
-          if (beliefs.length > 0) {
-            return (
-              <div key={type}>
-                <h4 className="text-md font-bold mb-2 mt-4">{type.charAt(0).toUpperCase() + type.slice(1)} Core Beliefs:</h4>
-                <ul className="list-disc list-inside">
-                  {beliefs.map((belief, index) => (
-                    <li key={index}>{belief}</li>
+        <div>
+          <strong className="text-gray-700">Thoughts:</strong>
+          <ul className="list-disc list-inside ml-4">
+            {thoughts.map((thought, idx) => (
+              <li className="text-xs" key={idx}>
+                {thought}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <strong className="text-gray-700 mt-2">Feeling - {getPleasantnessLabel(sliderValue)}</strong>
+          <ul className="list-disc list-inside ml-4">
+            {feelingsState.map((feeling, idx) => (
+              <li key={idx} className="list-none">
+                <span className="font-bold text-xs">{feeling.parent}</span>
+                <ul className="list-none flex flex-wrap gap-2 mt-2">
+                  {feeling.subFeelings.map((subFeeling, subIndex) => (
+                    <li key={subIndex} className="bg-gray-200 rounded-full px-3 py-1 text-xs">
+                      {subFeeling}
+                    </li>
                   ))}
                 </ul>
-              </div>
-            );
-          }
-          return null;
-        })}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <strong className="text-gray-700">Behaviors</strong>
+          <ul className="list-disc list-inside ml-4">
+            {behaviors.map((behavior, idx) => (
+              <li className="text-xs" key={idx}>
+                {behavior}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <strong className="text-gray-700">Core Beliefs</strong>
+          <ul className="list-disc list-inside ml-4">
+            <>
+              {["positive", "negative"].map((type) => {
+                const beliefs = coreBeliefs[type as keyof CoreBeliefs];
+                if (beliefs.length > 0) {
+                  return (
+                    <div key={type}>
+                      <span className="font-bold text-sm">{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                      <ul className="list-disc list-inside ml-4">
+                        {beliefs.map((belief, index) => (
+                          <li className="text-xs" key={index}>
+                            {belief}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </>
+          </ul>
+        </div>
       </div>
     </div>
   );
