@@ -58,8 +58,30 @@ Step 5 - A summary page of your entry
 
 - Node.js (version 14.x or later)
 - npm (version 6.x or later)
-- Capacitor CLI
-- Xcode (for iOS development)
+
+### Installation
+
+1. Install the dependencies
+
+```sh
+npm install
+```
+
+### Development
+
+1. Start the development server
+
+```sh
+npm run dev
+```
+
+### Build Commands
+
+1. Build the web application
+
+```sh
+npm run build
+```
 
 ## License
 
