@@ -70,3 +70,23 @@ export async function GET(req: NextRequest) {
     }
   }
 }
+
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+
+  if (!id) {
+    return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+  }
+
+  try {
+    await prisma.entry.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ message: 'Entry deleted successfully' }, { status: 200 });
+  } catch (error: any) {
+    logger.error('Error deleting entry: ' + error.message);
+    return NextResponse.json({ error: 'Failed to delete entry' }, { status: 500 });
+  }
+}

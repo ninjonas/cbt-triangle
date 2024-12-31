@@ -7,6 +7,8 @@ const DisplayEntries = () => {
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -39,9 +41,32 @@ const DisplayEntries = () => {
     }
   };
 
+  const handleDeleteEntry = async () => {
+    if (!selectedEntry) return;
+    setIsLoading(true);
+    try {
+      await axios.delete(`/api/entries?id=${selectedEntry.id}`);
+      setToastMessage("Entry deleted successfully");
+      setIsModalOpen(false);
+      const response = await axios.get("/api/entries");
+      const sortedEntries = response.data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      setEntries(sortedEntries);
+      if (sortedEntries.length > 0) {
+        setSelectedEntry(sortedEntries[0]);
+      } else {
+        setSelectedEntry(null);
+      }
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+    } finally {
+      setIsLoading(false);
+      setIsDropdownOpen(false); // Ensure dropdown is closed after deletion
+    }
+  };
+
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="flex-1 ml-5">
+      <div className="flex-1">
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -74,7 +99,27 @@ const DisplayEntries = () => {
         ) : (
           selectedEntry && (
             <div>
-              <h3 className="text-xl font-bold mt-4 mb-2 border-b pb-2">{selectedEntry.situation}</h3>
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-bold mt-4 mb-2 border-b pb-2">{selectedEntry.situation}</h3>
+                <div className="relative">
+                  <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="text-gray-500 hover:text-gray-700">
+                    &#x22EE;
+                  </button>
+                  {!isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
+                      <button
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          setIsModalOpen(true);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Delete Entry
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className="space-y-2">
                 <p className="text-xs text-gray-500 inline">
                   <strong className="text-gray-700">Created:</strong> {new Date(selectedEntry.createdAt).toLocaleString()}
@@ -83,7 +128,7 @@ const DisplayEntries = () => {
                   <strong className="text-gray-700">Updated:</strong> {new Date(selectedEntry.updatedAt).toLocaleString()}
                 </p>
                 <div>
-                  <strong className="text-gray-700">Thoughts</strong>
+                  <strong className="text-gray-700">Thoughts:</strong>
                   <ul className="list-disc list-inside ml-4">
                     {selectedEntry.thoughts?.split(",").map((thought, index) => (
                       <li className="text-xs" key={index}>
@@ -92,6 +137,7 @@ const DisplayEntries = () => {
                     ))}
                   </ul>
                 </div>
+
                 <div>
                   <strong className="text-gray-700">Behaviors:</strong>
                   <ul className="list-disc list-inside ml-4">
@@ -104,22 +150,23 @@ const DisplayEntries = () => {
                 </div>
                 <div>
                   <strong className="text-gray-700 mt-2">{getPleasantnessLabel(selectedEntry.pleasantness)}</strong>
+
+                  <ul className="list-disc list-inside ml-4">
+                    {selectedEntry.feelings &&
+                      JSON.parse(selectedEntry.feelings).map((feeling: { parent: string; subFeelings: string[] }, index: number) => (
+                        <li key={index} className="list-none">
+                          <span className="font-bold text-xs">{feeling.parent}</span>
+                          <ul className="list-none flex flex-wrap gap-2 mt-2">
+                            {feeling.subFeelings.map((subFeeling, subIndex) => (
+                              <li key={subIndex} className="bg-gray-200 rounded-full px-3 py-1 text-xs">
+                                {subFeeling}
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      ))}
+                  </ul>
                 </div>
-                <ul className="list-disc list-inside ml-4">
-                  {selectedEntry.feelings &&
-                    JSON.parse(selectedEntry.feelings).map((feeling: { parent: string; subFeelings: string[] }, index: number) => (
-                      <li key={index} className="list-none">
-                        <span className="font-bold text-xs">{feeling.parent}</span>
-                        <ul className="list-none flex flex-wrap gap-2 mt-2">
-                          {feeling.subFeelings.map((subFeeling, subIndex) => (
-                            <li key={subIndex} className="bg-gray-200 rounded-full px-3 py-1 text-xs">
-                              {subFeeling}
-                            </li>
-                          ))}
-                        </ul>
-                      </li>
-                    ))}
-                </ul>
                 <div>
                   <strong className="text-gray-700">Core Beliefs:</strong>
                   <ul className="list-disc list-inside ml-4">
@@ -142,7 +189,7 @@ const DisplayEntries = () => {
                             <span className="font-bold text-sm">Negative</span>
                             <ul className="list-disc list-inside ml-4">
                               {JSON.parse(selectedEntry.coreBeliefs).negative.map((belief: string, index: number) => (
-                                <li className="text-sm" key={index}>
+                                <li className="text-xs" key={index}>
                                   {belief}
                                 </li>
                               ))}
@@ -158,6 +205,27 @@ const DisplayEntries = () => {
           )
         )}
       </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-md shadow-md">
+            <h2 className="text-lg font-bold mb-4">Confirm Deletion</h2>
+            <p className="mb-4">Are you sure you want to delete this entry? This action cannot be undone.</p>
+            <div className="flex justify-end">
+              <button onClick={() => setIsModalOpen(false)} className="mr-4 px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">
+                Cancel
+              </button>
+              <button onClick={handleDeleteEntry} className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast */}
+      {toastMessage && <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-md">{toastMessage}</div>}
     </div>
   );
 };
