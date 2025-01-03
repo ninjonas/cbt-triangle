@@ -30,6 +30,12 @@ This application allows users to:
 - Review entries in a structured format.
 - Use the cognitive triangle to positively reappraise their thoughts, feelings, and behaviors.
 
+### Demo
+
+You can see a live demo of the application in action at the following link: [CBT Triangle Demo](https://ninjonas.github.io/cbt-triangle/). This demo showcases the core
+feature of the application, recording entries and using the cognitive triangle to positively reappraise thoughts, feelings, and behaviors. Explore the demo to understand
+how this tool can help you track and manage your cognitive patterns effectively.
+
 ### Screenshots
 
 <img src="doc/step1.png" width="300"/>
