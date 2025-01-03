@@ -16,7 +16,7 @@ export default function Home() {
     <main className="min-h-screen bg-gray-100 p-3">
       <div className="max-w-2xl mx-auto bg-white p-3 rounded-md shadow">
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">The Cognitive Triangle</h1>
+          <h1 className="text-2xl font-bold">CBT Triangle</h1>
           {!isProd && (
             <button onClick={toggleView} className="bg-blue-500 text-white px-4 py-2 rounded-md shadow">
               {showCreateEntry ? "View Entries" : "Create New Entry"}
