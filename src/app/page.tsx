@@ -11,7 +11,7 @@ export default function Home() {
         <p className="mb-4 text-sm">
           The{" "}
           <a href="https://aanmc.org/naturopathic-medicine/cognitive-triangle-cbt/" target="_blank" rel="noopener noreferrer">
-            CBT Triangle
+            <strong>CBT Triangle</strong>
           </a>{" "}
           shows how thoughts, emotions, and behaviors influence each other. Learn more on{" "}
           <a href="https://github.com/ninjonas/cbt-triangle" target="_blank" rel="noopener noreferrer">
