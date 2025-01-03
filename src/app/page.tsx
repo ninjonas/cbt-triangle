@@ -8,8 +8,12 @@ export default function Home() {
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">The Cognitive Triangle</h1>
         </div>
-        <p className="mb-4">
-          The cognitive triangle illustrates how thoughts, emotions, and behaviors affect one another. This idea forms the basis of cognitive behavior therapy (CBT).
+        <p className="mb-4 text-sm">
+          The cognitive triangle shows how thoughts, emotions, and behaviors influence each other. Learn more on{" "}
+          <a href="https://github.com/ninjonas/cbt-triangle" target="_blank" rel="noopener noreferrer">
+            <strong>the project's GitHub repository</strong>
+          </a>
+          .
         </p>
         <CreateEntry />
       </div>
