@@ -125,6 +125,7 @@ export const categoryColors = {
   Fearful: "bg-green-200",
   Surprised: "bg-purple-200",
   Bad: "bg-orange-200",
+  Disgusted: "bg-pink-300",
 };
 
 export const negativeCognitions = [
