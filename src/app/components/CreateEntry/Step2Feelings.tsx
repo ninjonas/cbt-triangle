@@ -56,7 +56,7 @@ const Step2Feelings: React.FC<Step2FeelingsProps> = ({
     sliderValue === 50
       ? (Object.keys(categoryColors) as Array<keyof typeof categoryColors>) // Show all feelings
       : sliderValue < 50
-      ? ["Surprised", "Sad", "Angry", "Fearful", "Bad"] // Not pleasant feelings
+      ? ["Surprised", "Sad", "Angry", "Fearful", "Bad", "Disgusted"] // Not pleasant feelings
       : ["Happy", "Surprised"]; // Pleasant feelings
 
   const handleSliderChange = (value: number) => {
