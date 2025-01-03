@@ -72,17 +72,8 @@ const CreateEntry = () => {
     };
 
     try {
-      const response = await fetch("/api/entries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(entry),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save the record");
-      }
-
-      toast.success("Record saved successfully!");
+      console.log("Entry:", entry);
+      toast.success("For demo purposes, the entry is logged to the console.");
       setSituation("");
       setThoughts([]);
       setBehaviors([]);

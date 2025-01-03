@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - static-page
 
 jobs:
   build:
@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build and export
-        run: npm run build && npm run export
+      - name: Build
+        run: npm run clean && NEXT_PUBLIC_ENV=production npm run build
 
       - name: Deploy to GitHub Pages
         run: |

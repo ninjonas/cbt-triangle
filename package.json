@@ -11,7 +11,7 @@
     "lint": "next lint",
     "prisma:migrate": "prisma migrate dev --schema=prisma/schema.prisma",
     "clean": "rm -rf .next",
-    "deploy": "npm run build && npm run export && touch out/.nojekyll && git add out && git commit -m '[deploy] Deploy to GitHub Pages' && git push origin `git subtree split --prefix out main`:gh-pages --force"
+    "deploy": "npm run clean && NEXT_PUBLIC_ENV=production npm run build && touch out/.nojekyll && git add out && git commit -m '[deploy] Deploy to GitHub Pages' && git push origin `git subtree split --prefix out main`:gh-pages --force"
   },
   "dependencies": {
     "@prisma/client": "^6.1.0",
