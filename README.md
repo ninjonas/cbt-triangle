@@ -14,13 +14,14 @@ Image Source: [Mental Health Center Kids](https://mentalhealthcenterkids.com/blo
 
 ## What is this Project?
 
-I've dealt with some life changing experiences in the past few years that have given me severe anxiety. After working with my therapist for over a year, they have showed
-me techniques to help me rationalize my thoughts. The Cognitive Triangle helped me.
+Over the past few years, I’ve experienced some life-changing events that have led to severe anxiety. After working with my therapist for over a year, I’ve learned
+techniques to help me rationalize my thoughts. One of the most impactful tools has been the Cognitive Triangle.
 
-During my low points, I have used this method religiously. Over time, I'm able to now be aware of my feelings and have become calmer. I still have feelings of
-insecureties one in a while and I've been forgetting to log my cognitions.
+During my lowest moments, I relied on this method consistently. Over time, it has helped me become more aware of my emotions and maintain a greater sense of calm. While I
+still experience moments of insecurity, I’ve noticed that I’ve been forgetting to log my cognitions regularly.
 
-I'm hoping this project will help me easily log my cognitions and hopefully start tracking trends what cognitions I should work on
+With this project, I hope to make it easier to track and log my thoughts, and even identify patterns in the cognitions I need to work on. This method has been
+transformative for me, and I’m excited to share it with anyone who finds their way to this repository.
 
 ## Functionality
 
