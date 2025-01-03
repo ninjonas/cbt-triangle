@@ -11,7 +11,7 @@ export default function Home() {
         <p className="mb-4 text-sm">
           The cognitive triangle shows how thoughts, emotions, and behaviors influence each other. Learn more on{" "}
           <a href="https://github.com/ninjonas/cbt-triangle" target="_blank" rel="noopener noreferrer">
-            <strong>the project's GitHub repository</strong>
+            <strong>the project&apos;s GitHub repository</strong>
           </a>
           .
         </p>
