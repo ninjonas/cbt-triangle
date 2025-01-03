@@ -8,7 +8,9 @@ thoughts. 7
 
 The cognitive triangle is a graph depicting thoughts, feelings, and behaviors all leading to one another, as shown below:
 
-<img src="https://aanmc.org/wp-content/uploads/2024/03/iStock-1882744014-1-1536x878.jpg?format=200w" />
+<img src="doc/Cognitive_Triangle.png" />
+
+Image Source: [Mental Health Center Kids](https://mentalhealthcenterkids.com/blogs/articles/cbt-triangle/)
 
 ## What is this Project?
 
