@@ -45,6 +45,21 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
     return `${situationText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
   };
 
+  const generateClipboardSummaryMarkdown = () => {
+    const thoughtsText = thoughts.length ? `###### Thoughts:\n\t- ${thoughts.join("\n\t- ")}\n` : "";
+    const behaviorsText = behaviors.length ? `###### Behaviours:\n\t- ${behaviors.join("\n\t- ")}\n` : "";
+    const feelingsText = feelingsState.length
+      ? `Feeling - ${getPleasantnessLabel(sliderValue)}: ${feelingsState.map((feeling) => `\n\t- ${feeling.parent}\n\t\t(${feeling.subFeelings.join(", ")})`).join("")}\n`
+      : "";
+    const cognitionsText = `${coreBeliefs.positive.length ? `###### Positive Cognitions:\n\t- ${coreBeliefs.positive.join("\n\t- ")}\n` : ""}${
+      coreBeliefs.negative.length ? `###### Negative Cognitions:\n\t- ${coreBeliefs.negative.join("\n\t- ")}\n` : ""
+    }`;
+
+    const situationText = `###### Situation: ${situation}\n`;
+
+    return `${situationText}${thoughtsText}${feelingsText}${behaviorsText}${cognitionsText}`;
+  };
+
   const getCurrentTimestamp = () => {
     const now = new Date();
     return new Intl.DateTimeFormat("en-US", {
@@ -59,6 +74,27 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
 
   const handleCopyToClipboard = async () => {
     const summaryText = `${getCurrentTimestamp()} #cbt \n${generateClipboardSummaryText()}`;
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(summaryText);
+        toast.success("Summary copied to clipboard!");
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = summaryText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        toast.success("Summary copied to clipboard!");
+      }
+    } catch {
+      toast.error("Failed to copy summary.");
+    }
+  };
+
+  const handleCopyMarkdownToClipboard = async () => {
+    const summaryText = `##### ${getCurrentTimestamp()} #cbt \n${generateClipboardSummaryMarkdown()}`;
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(summaryText);
@@ -85,9 +121,14 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
         </div>
         <div className="flex justify-between items-center mt-4 mb-2 border-b pb-2">
           <h3 className="text-xl font-bold">{situation}</h3>
-          <button className="px-4 py-2 bg-gray-100 text-white rounded-md hover:bg-gray-500" onClick={handleCopyToClipboard} title="Copy to Clipboard">
-            📋
-          </button>
+          <div className="flex space-x-2 ml-auto">
+            <button className="px-4 py-2 bg-yellow-200 text-white rounded-md hover:bg-gray-500" onClick={handleCopyToClipboard} title="Copy to Clipboard">
+              📋
+            </button>
+            <button className="px-4 py-2 bg-purple-200 text-white rounded-md hover:bg-gray-500" onClick={handleCopyMarkdownToClipboard} title="Copy to Obsidian Notebook">
+              <img src="./cbt-triangle/obsidian-icon.png" alt="Obsidian Icon" className="w-5 h-5 object-cover" />
+            </button>
+          </div>
         </div>
         <div>
           <strong className="text-gray-700">Thoughts:</strong>
