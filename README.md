@@ -46,26 +46,6 @@ how this tool can help you track and manage your cognitive patterns effectively.
 | Core Beliefs          | <img src="doc/positive4.png" width="300"/> | <img src="doc/negative4.png" width="300"/> |
 | Summary               | <img src="doc/positive5.png" width="300"/> | <img src="doc/negative5.png" width="300"/> |
 
-<img src="doc/step1.png" width="300"/>
-
-Step 1 - Enter the situation and thougts going on in your mind
-
-<img src="doc/step2.png" width="300"/>
-
-Step 2 - How would you rate your feeling and select all the feelings you can relate to
-
-<img src="doc/step3.png" width="300"/>
-
-Step 3 - What were the behaviors you've observed you've done while your feel a certain way?
-
-<img src="doc/step4.png" width="300"/>
-
-Step 4 - Select from a list of cognitions/core beliefs
-
-<img src="doc/step5.png" width="300"/>
-
-Step 5 - A summary page of your entry
-
 ## Technical Setup
 
 ### Prerequisites
