@@ -4,7 +4,7 @@
 
 The cognitive triangle is a simple [CBT](https://aanmc.org/naturopathic-medicine/cognitive-triangle-cbt/) tool you can use to help break negative thought patterns. It is
 similar to keeping a thought record, but has more structure and requires you to positively reappraise your thoughts, feelings, and behaviors as opposed to just your
-thoughts. 7
+thoughts.
 
 The cognitive triangle is a graph depicting thoughts, feelings, and behaviors all leading to one another, as shown below:
 

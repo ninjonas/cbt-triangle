@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CBT Triangle",
-  description: "",
+  description:
+    "The cognitive triangle is a simple Cognitive Behavioral Therapy (CBT) tool you can use to help break negative thought patterns. It issimilar to keeping a thought record, but has more structure and requires you to positively reappraise your thoughts, feelings, and behaviors as opposed to just your thoughts.",
 };
 
 export default function RootLayout({
