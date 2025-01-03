@@ -58,7 +58,7 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
   };
 
   const handleCopyToClipboard = async () => {
-    const summaryText = `Date: ${getCurrentTimestamp()} #cbt-triangle \n${generateClipboardSummaryText()}`;
+    const summaryText = `${getCurrentTimestamp()} #cbt \n${generateClipboardSummaryText()}`;
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(summaryText);
