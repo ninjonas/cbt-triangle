@@ -1,10 +1,10 @@
 # The Cognitive Triangle
 
-## What is the Cognitive Triangle?
+## What is the Cognitive Behavior Therapy (CBT) Triangle?
 
-The cognitive triangle is a simple [CBT](https://aanmc.org/naturopathic-medicine/cognitive-triangle-cbt/) tool you can use to help break negative thought patterns. It is
-similar to keeping a thought record, but has more structure and requires you to positively reappraise your thoughts, feelings, and behaviors as opposed to just your
-thoughts. 7
+The cognitive triangle is a simple [CBT Triangle](https://aanmc.org/naturopathic-medicine/cognitive-triangle-cbt/) tool you can use to help break negative thought
+patterns. It is similar to keeping a thought record, but has more structure and requires you to positively reappraise your thoughts, feelings, and behaviors as opposed to
+just your thoughts. 7
 
 The cognitive triangle is a graph depicting thoughts, feelings, and behaviors all leading to one another, as shown below:
 
@@ -14,14 +14,15 @@ Image Source: [Mental Health Center Kids](https://mentalhealthcenterkids.com/blo
 
 ## What is this Project?
 
-Over the past few years, I’ve experienced some life-changing events that have led to severe anxiety. After working with my therapist for over a year, I’ve learned
-techniques to help me rationalize my thoughts. One of the most impactful tools has been the Cognitive Triangle.
+Over the past few years, I’ve experienced some life-changing events that have led to anxiety. After working with my therapist for over a year, I’ve learned techniques to
+help me rationalize my thoughts. One of the most impactful tools has been the [CBT Triangle](https://aanmc.org/naturopathic-medicine/cognitive-triangle-cbt/).
 
-During my lowest moments, I relied on this method consistently. Over time, it has helped me become more aware of my emotions and maintain a greater sense of calm. While I
-still experience moments of insecurity, I’ve noticed that I’ve been forgetting to log my cognitions regularly.
+During my low moments, I relied on this method consistently. Over time, it has helped me become more aware of my emotions and maintain a greater sense of calm. However, I
+used to log my thoughts on paper, and I often forgot to keep up with it. This inconsistency made it harder to track my progress and identify patterns in my thinking.
 
-With this project, I hope to make it easier to track and log my thoughts, and even identify patterns in the cognitions I need to work on. This method has been
-transformative for me, and I’m excited to share it with anyone who finds their way to this repository.
+That’s why I created this application—to make it easier to log and track my cognitions digitally. With this tool, I hope to identify trends in my thoughts and focus on
+the areas that need the most attention. This method has been transformative for me, and I’m excited to share it with anyone who finds their way to
+[this repository](https://github.com/ninjonas/cbt-triangle).
 
 ## Functionality
 
