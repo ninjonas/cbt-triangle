@@ -126,7 +126,7 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
               📋
             </button>
             <button className="px-4 py-2 bg-purple-200 text-white rounded-md hover:bg-gray-500" onClick={handleCopyMarkdownToClipboard} title="Copy to Obsidian Notebook">
-              <img src="./cbt-triangle/obsidian-icon.png" alt="Obsidian Icon" className="w-5 h-5 object-cover" />
+              <img src="./obsidian-icon.png" alt="Obsidian Icon" className="w-5 h-5 object-cover" />
             </button>
           </div>
         </div>
