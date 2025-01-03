@@ -131,7 +131,7 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
           </div>
         </div>
         <div>
-          <strong className="text-gray-700">Thoughts:</strong>
+          <strong className="text-gray-700">Thoughts</strong>
           <ul className="list-disc list-inside ml-4">
             {thoughts.map((thought, idx) => (
               <li className="text-xs" key={idx}>
@@ -141,7 +141,7 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
           </ul>
         </div>
         <div>
-          <strong className="text-gray-700 mt-2">Feeling - {getPleasantnessLabel(sliderValue)}</strong>
+          <strong className="text-gray-700 mt-2">Feelings - {getPleasantnessLabel(sliderValue)}</strong>
           <ul className="list-disc list-inside ml-4">
             {feelingsState.map((feeling, idx) => (
               <li key={idx} className="list-none">
