@@ -5,30 +5,48 @@ on:
     branches:
       - static-page
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Setup Node.js ⚙️ - Cache dependencies ⚡ - Install dependencies 🔧
+        uses: ./.github/workflows/setup-node
+
+      - name: Setup Pages ⚙️
+        uses: actions/configure-pages@v4
         with:
-          node-version: '16'
+          static_site_generator: next
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build with Next.js 🏗️
+        run: npx next build
 
-      - name: Build
-        run: npm run clean && NEXT_PUBLIC_ENV=production npm run build
+      - name: Upload artifact 📡
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
 
-      - name: Deploy to GitHub Pages
-        run: |
-          touch out/.nojekyll
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add out
-          git commit -m '[deploy] Deploy to GitHub Pages'
-          git push origin `git subtree split --prefix out main`:gh-pages --force
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Publish to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4
