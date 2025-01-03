@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://ninjonas.github.io/cbt-app",
   "scripts": {
-    "dev": "npm run clean & next dev --turbopack",
+    "dev": "NEXT_PUBLIC_ENV=local npm run clean & next dev --turbopack",
     "prod": "npm run clean & NEXT_PUBLIC_ENV=production next build && next start",
     "build": "next build",
     "start": "next start",
