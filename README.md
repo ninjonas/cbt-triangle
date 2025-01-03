@@ -38,6 +38,14 @@ how this tool can help you track and manage your cognitive patterns effectively.
 
 ### Screenshots
 
+| Step                  | Positive                                   | Negative                                   |
+| --------------------- | ------------------------------------------ | ------------------------------------------ |
+| Situations & Thoughts | <img src="doc/positive1.png" width="150"/> | <img src="doc/negative1.png" width="150"/> |
+| Feelings              | <img src="doc/positive2.png" width="150"/> | <img src="doc/negative2.png" width="150"/> |
+| Behaviors             | <img src="doc/positive3.png" width="150"/> | <img src="doc/negative3.png" width="150"/> |
+| Core Beliefs          | <img src="doc/positive4.png" width="150"/> | <img src="doc/negative4.png" width="150"/> |
+| Summary               | <img src="doc/positive5.png" width="150"/> | <img src="doc/negative5.png" width="150"/> |
+
 <img src="doc/step1.png" width="300"/>
 
 Step 1 - Enter the situation and thougts going on in your mind
