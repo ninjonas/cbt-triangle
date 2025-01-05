@@ -49,7 +49,9 @@ const Step5Confirmation: React.FC<Step5Props> = ({ situation, thoughts, feelings
     const thoughtsText = thoughts.length ? `###### Thoughts:\n\t- ${thoughts.join("\n\t- ")}\n` : "";
     const behaviorsText = behaviors.length ? `###### Behaviours:\n\t- ${behaviors.join("\n\t- ")}\n` : "";
     const feelingsText = feelingsState.length
-      ? `Feeling - ${getPleasantnessLabel(sliderValue)}: ${feelingsState.map((feeling) => `\n\t- ${feeling.parent}\n\t\t(${feeling.subFeelings.join(", ")})`).join("")}\n`
+      ? `###### Feeling - ${getPleasantnessLabel(sliderValue)}: ${feelingsState
+          .map((feeling) => `\n\t- ${feeling.parent}\n\t\t(${feeling.subFeelings.join(", ")})`)
+          .join("")}\n`
       : "";
     const cognitionsText = `${coreBeliefs.positive.length ? `###### Positive Cognitions:\n\t- ${coreBeliefs.positive.join("\n\t- ")}\n` : ""}${
       coreBeliefs.negative.length ? `###### Negative Cognitions:\n\t- ${coreBeliefs.negative.join("\n\t- ")}\n` : ""
